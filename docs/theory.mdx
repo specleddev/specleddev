@@ -1,61 +1,44 @@
 ---
-title: "Theory"
-description: "The reasoning behind Spec Led Development."
+title: "Problems It Solves"
+description: "Common problems in modern codebases that Spec Led Dev helps fix."
 ---
 
-Spec Led Development is built on a simple observation:
+Modern teams move fast, but the meaning of the code often gets lost.
 
-software intent is real, but it is rarely captured in a form that stays close to the code and remains useful to both humans and machines.
+## Common problems
 
-## Specs are necessary, but insufficient on their own
+- The code works, but it does the wrong thing
+- Docs and code stop matching
+- Tests do not explain the real contract
+- AI changes are hard to trust
+- New team members take too long to get up to speed
+- Important behavior lives in team memory instead of GitHub
+- When the code drifts, there is no clear way to bring it back in line
 
-Specs are valuable because they capture ideal state:
+## What Spec Led Dev changes
 
-- what a package, service, API, or module is intended to do
-- what invariants it must preserve
-- what behaviors are public and stable
-- what verification should exist
+Spec Led Dev gives teams a simple file in the repo that says what the code is supposed to do.
 
-But specs do not replace code, tests, or architecture.
+That helps because:
 
-They are a contract layer, not the running system.
+- humans can understand the project faster
+- AI has a clearer target
+- tests and docs have something concrete to line up with
+- drift is easier to spot
+- AI can help fix drift instead of making it worse
 
-## Code and specs are both lossy
+## Why this matters for AI
 
-Spec-to-code translation is lossy because a spec cannot fully capture every implementation decision.
+AI is good at making changes, but it still needs clear direction.
 
-Code-to-spec translation is lossy because code does not fully preserve intent, scope, rationale, or non-goals.
+Without a spec, AI has to guess.
 
-The right goal is not perfect round-tripping.
+With a spec, AI can:
 
-The right goal is bounded, reviewable alignment between intended behavior and actual implementation.
+- make changes that fit the intended behavior
+- update tests and docs with the code
+- help bring the code back in line when it drifts
 
-## Tests are executable evidence
+## In plain terms
 
-Tests matter because they provide proof surfaces:
-
-- unit tests pin local semantics
-- integration tests pin composed behavior
-- contract tests pin public interface behavior
-- regression tests pin past failure classes
-- docs and policy checks pin user-facing and repo-facing truth
-
-In Spec Led Development, tests are not the spec. They are evidence that parts of the spec are being satisfied.
-
-## LLMs are remediation engines
-
-LLMs are powerful but non-deterministic. That makes them risky when asked to infer intent from vague prose.
-
-Spec Led gives them a safer role:
-
-- detect or receive a structured finding
-- act against a declared desired state
-- make a bounded change
-- verify the result
-
-This makes agents operators in a maintenance loop, not oracles that define the system.
-
-## The theory in one sentence
-
-Declare the ideal locally, verify it continuously, derive drift externally, and use tools or agents to restore alignment.
-
+Spec Led Dev helps teams keep the meaning of the code clear as the code changes.

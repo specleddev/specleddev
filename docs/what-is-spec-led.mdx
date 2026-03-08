@@ -1,54 +1,45 @@
 ---
 title: "What Is Spec Led?"
-description: "A concise definition of Spec Led Development."
+description: "A simple way to write down what your code is supposed to do."
 ---
 
-Spec Led Development treats the specification as a first-class artifact that lives with the codebase and defines the intended behavior, boundaries, and verification obligations of the system.
+Spec Led Dev is a simple way to write down what your code is supposed to do.
 
-It assumes:
+The spec lives in the repo, next to the code, so humans and AI can both use it.
 
-- code is the implementation, not the full intent
-- prose alone is too ambiguous
-- tests are evidence, not the complete contract
-- LLMs can help maintain alignment, but should not invent the spec
+It helps with common problems:
 
-## The basic move
+- code changes, but nobody updates the docs
+- tests pass, but the code still drifts from the original intent
+- new team members cannot get up to speed fast enough
+- AI makes changes, but it is hard to tell if those changes fit the real contract
 
-The basic move is simple:
+## The basic idea
 
-1. Author the intended behavior and boundaries of the system in repo-local spec documents.
-2. Link those claims to expected verification surfaces such as tests, docs, commands, and workflows.
-3. Let tooling derive drift and findings by comparing the implementation to that declared ideal.
-4. Let deterministic tools or bounded agents remediate drift safely.
+You write short spec files for the important parts of a codebase.
 
-## What belongs in the spec
+Those specs say:
 
-The spec should describe:
-
-- what the subject is
-- what must be true about it
-- concrete examples of that truth
-- how it should be verified
+- what the code should do
+- what should stay stable
+- what tests or checks should prove it
 - any approved exceptions
 
-## What does not belong in the spec
+## What makes it useful
 
-The spec should not directly encode:
+Because the spec is in the repo:
 
-- findings
-- drift summaries
-- coverage reports
-- action history
-- approval state
+- humans can read it in GitHub and get up to speed faster
+- AI has a clearer target when it writes or fixes code
+- teams can see when the code has drifted from the intended behavior
+- AI can help bring the code back in line when drift happens
 
-Those are derived outputs produced by tooling or control planes.
+## What it is good for
 
-## Why it matters
+- packages
+- modules
+- APIs
+- services
+- workflows
 
-When the spec is local, explicit, and structured, it becomes possible to:
-
-- review intent alongside code
-- keep docs, tests, and implementation aligned
-- identify drift early
-- give agents a safer target for maintenance work
-
+It is meant to work in any language.
