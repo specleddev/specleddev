@@ -1,34 +1,7 @@
 {
   "name": "specleddev",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "Spec Led Dev docs site",
   "private": true,
-  "engines": {
-    "node": "20.x || 22.x"
-  },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^4.3.1",
-    "@astrojs/react": "^4.4.2",
-    "@mintlify/astro": "^0.1.9",
-    "@mintlify/components": "^1.0.5",
-    "@mintlify/models": "^0.0.260",
-    "@mintlify/validation": "^0.1.574",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.12",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "tailwindcss": "^4.1.18"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.0",
-    "@types/react": "^19.2.9",
-    "@types/react-dom": "^19.2.3"
+    "dev": "cd docs && npx mint dev"
   }
 }
