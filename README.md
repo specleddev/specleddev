@@ -1,4 +1,4 @@
-# Spec Led Docs
+# Spec Led Dev
 
 Public docs site for `specled.dev`.
 
@@ -23,4 +23,3 @@ npm run dev
   - concrete examples
 - `docs/implementation/`
   - guidance for tool builders
-
