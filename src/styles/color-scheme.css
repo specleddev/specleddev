@@ -1,7 +1,9 @@
-@custom-variant dark (&:not(*));
+@custom-variant dark (&:where(.dark, .dark *));
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: light !important;
-  }
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
 }

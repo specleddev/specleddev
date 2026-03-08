@@ -1,6 +1,7 @@
 ---
 import type { TabInfo } from '@mintlify/astro/helpers';
 import { MobileActionButtons, MobileNavToggle } from './MobileHeaderActions';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   tabs: TabInfo[] | null;
@@ -14,7 +15,7 @@ const usingTabs = tabs && tabs.length > 0;
 
 <header class="sticky top-0 w-full px-8 z-50">
   <div
-    class="absolute left-1/2 -translate-x-1/2 w-screen h-full backdrop-blur flex-none transition-colors duration-500 border-b border-gray-500/5 bg-white/95 supports-backdrop-blur:bg-white/60"
+    class="absolute left-1/2 -translate-x-1/2 w-screen h-full backdrop-blur flex-none transition-colors duration-500 border-b border-stone-200/70 bg-white/95 supports-backdrop-blur:bg-white/75 dark:border-stone-800 dark:bg-stone-950/80 dark:supports-backdrop-blur:bg-stone-950/70"
   >
   </div>
   <div class="relative">
@@ -28,13 +29,18 @@ const usingTabs = tabs && tabs.length > 0;
             ]}
           >
             <div class="flex items-center shrink-0 lg:flex-1">
-              <a href="/" class="flex items-center shrink-0">
-                <img src="/logo/light.svg" alt="Spec Led Dev" class="h-7" />
+              <a href="/" class="flex items-center gap-3 shrink-0">
+                <img src="/favicon.svg" alt="" class="h-8 w-8 rounded-xl" />
+                <span class="text-base font-semibold tracking-tight text-stone-950 dark:text-stone-50">
+                  Spec Led Dev
+                </span>
               </a>
             </div>
             <div class="flex-1 hidden lg:block"></div>
             <MobileActionButtons client:load />
-            <div class="flex-1 hidden lg:flex items-center justify-end"></div>
+            <div class="flex-1 hidden lg:flex items-center justify-end">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
         {

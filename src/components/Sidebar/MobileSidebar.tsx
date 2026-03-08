@@ -62,7 +62,7 @@ export function MobileSidebar({
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          className="fixed bg-white rounded-full top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-600 shadow-md z-80 lg:hidden"
+          className="fixed top-4 right-4 z-80 flex h-8 w-8 items-center justify-center rounded-full bg-white text-stone-500 shadow-md hover:text-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:text-stone-100 lg:hidden"
           aria-label="Close navigation"
         >
           <Icon icon="x" iconLibrary="lucide" size={18} />
@@ -71,17 +71,58 @@ export function MobileSidebar({
 
       <div
         className={cn(
-          'fixed top-0 left-0 bottom-0 w-[20rem] bg-white z-70 transition-transform duration-300 ease-in-out lg:hidden',
+          'fixed top-0 left-0 bottom-0 z-70 w-[20rem] bg-white transition-transform duration-300 ease-in-out dark:bg-stone-950 lg:hidden',
           isOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between px-4 pt-6 pb-4">
-            <img
-              src="/logo/light.svg"
-              alt="Mint Starter Kit"
-              className="h-7 w-auto"
-            />
+            <a href="/" className="flex items-center gap-3">
+              <img src="/favicon.svg" alt="" className="h-8 w-8 rounded-xl" />
+              <span className="text-base font-semibold tracking-tight text-stone-950 dark:text-stone-50">
+                Spec Led Dev
+              </span>
+            </a>
+            <button
+              type="button"
+              data-theme-toggle
+              aria-label="Toggle color theme"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-stone-200 bg-white text-stone-700 transition-colors hover:border-stone-300 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200 dark:hover:border-stone-600 dark:hover:bg-stone-800"
+            >
+              <svg
+                className="h-4 w-4 dark:hidden"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2.5" />
+                <path d="M12 19.5V22" />
+                <path d="M4.93 4.93l1.77 1.77" />
+                <path d="M17.3 17.3l1.77 1.77" />
+                <path d="M2 12h2.5" />
+                <path d="M19.5 12H22" />
+                <path d="M4.93 19.07l1.77-1.77" />
+                <path d="M17.3 6.7l1.77-1.77" />
+              </svg>
+              <svg
+                className="hidden h-4 w-4 dark:block"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" />
+              </svg>
+              <span className="sr-only">Toggle color theme</span>
+            </button>
           </div>
 
           <nav className="flex-1 overflow-y-auto pt-4 pb-8">

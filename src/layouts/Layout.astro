@@ -17,6 +17,57 @@ const pageTitle = title === 'Spec Led Dev' ? title : `${title} - Spec Led Dev`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <script is:inline>
+      (() => {
+        const getTheme = () => {
+          const storedTheme = localStorage.getItem('specled-theme');
+
+          if (storedTheme === 'light' || storedTheme === 'dark') {
+            return storedTheme;
+          }
+
+          return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        };
+
+        const applyTheme = (theme) => {
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        };
+
+        applyTheme(getTheme());
+
+        const bindThemeToggles = () => {
+          document.querySelectorAll('[data-theme-toggle]').forEach((toggle) => {
+            if (toggle._specledBound === true) {
+              return;
+            }
+
+            toggle._specledBound = true;
+
+            toggle.addEventListener('click', () => {
+              const nextTheme =
+                document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+
+              localStorage.setItem('specled-theme', nextTheme);
+              applyTheme(nextTheme);
+            });
+          });
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', bindThemeToggles, {
+            once: true,
+          });
+        } else {
+          bindThemeToggles();
+        }
+
+        document.addEventListener('astro:page-load', bindThemeToggles);
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
