@@ -1,0 +1,54 @@
+---
+title: "What Is Spec Led?"
+description: "A concise definition of Spec Led Development."
+---
+
+Spec Led Development treats the specification as a first-class artifact that lives with the codebase and defines the intended behavior, boundaries, and verification obligations of the system.
+
+It assumes:
+
+- code is the implementation, not the full intent
+- prose alone is too ambiguous
+- tests are evidence, not the complete contract
+- LLMs can help maintain alignment, but should not invent the spec
+
+## The basic move
+
+The basic move is simple:
+
+1. Author the intended behavior and boundaries of the system in repo-local spec documents.
+2. Link those claims to expected verification surfaces such as tests, docs, commands, and workflows.
+3. Let tooling derive drift and findings by comparing the implementation to that declared ideal.
+4. Let deterministic tools or bounded agents remediate drift safely.
+
+## What belongs in the spec
+
+The spec should describe:
+
+- what the subject is
+- what must be true about it
+- concrete examples of that truth
+- how it should be verified
+- any approved exceptions
+
+## What does not belong in the spec
+
+The spec should not directly encode:
+
+- findings
+- drift summaries
+- coverage reports
+- action history
+- approval state
+
+Those are derived outputs produced by tooling or control planes.
+
+## Why it matters
+
+When the spec is local, explicit, and structured, it becomes possible to:
+
+- review intent alongside code
+- keep docs, tests, and implementation aligned
+- identify drift early
+- give agents a safer target for maintenance work
+

@@ -1,0 +1,80 @@
+---
+title: "Overview"
+description: "A simple, repo-native method for keeping software intent close to the code."
+---
+
+Spec Led is a lightweight standard for writing software specifications inside the repository itself.
+
+It gives teams a middle layer between prose, code, tests, and agents:
+
+- readable enough for humans
+- structured enough for tools
+- narrow enough to verify
+- useful enough for bounded LLM remediation
+
+## Why Spec Led?
+
+Most software systems drift in predictable ways:
+
+- code changes faster than docs
+- tests prove behavior, but not always scope or intent
+- architecture weakens through local decisions
+- quality rules become tribal knowledge
+- agents generate plausible code against underspecified requirements
+
+Spec Led exists to keep the intended behavior and boundaries of a codebase explicit and local.
+
+## What does it enable?
+
+- **Repo-native contracts**: Keep the authored spec close to the code instead of in a separate requirements system.
+- **Clear verification**: Link intended behavior to tests, docs, commands, and workflows.
+- **Derived drift detection**: Let tooling compare the codebase against the declared ideal.
+- **Safer agent workflows**: Give LLMs a stable contract to remediate against instead of asking them to infer intent from scratch.
+- **Language-agnostic structure**: Use the same core model across packages, services, APIs, and workflows.
+
+## Open development
+
+Spec Led is being refined in the open, starting with a concrete package example in `jido_action`.
+
+The goal is not to create a formal methods platform or a spec-to-code compiler. The goal is to create a simple, durable standard for declaring what a codebase is intended to do and how that intent should be verified.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card
+    title="What is Spec Led?"
+    icon="lightbulb"
+    href="/what-is-spec-led"
+  >
+    Learn the core idea and the basic principles behind the approach.
+  </Card>
+  <Card
+    title="Theory"
+    icon="brain"
+    href="/theory"
+  >
+    See the reasoning behind repo-native specs, verification, and agentic remediation.
+  </Card>
+  <Card
+    title="Specification"
+    icon="file-code"
+    href="/specification"
+  >
+    Read the authored format and the core entities of a Spec Led document.
+  </Card>
+  <Card
+    title="Add support"
+    icon="gear"
+    href="/implementation/adding-specled-support"
+  >
+    Build parsers, auditors, or control planes that can consume Spec Led documents.
+  </Card>
+  <Card
+    title="`jido_action` example"
+    icon="code"
+    href="/examples/jido-action"
+  >
+    See how Spec Led applies to a real package and module surface.
+  </Card>
+</CardGroup>
+

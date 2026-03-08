@@ -1,0 +1,8 @@
+{
+  "name": "specled-docs",
+  "private": true,
+  "scripts": {
+    "dev": "cd docs && npx mint dev"
+  }
+}
+

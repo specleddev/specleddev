@@ -1,0 +1,56 @@
+---
+title: "Adding Spec Led Support"
+description: "How parsers, auditors, and control planes should consume Spec Led documents."
+---
+
+Spec Led is designed so codebases can author specs locally without taking a dependency on a toolchain.
+
+That means client implementations should treat repo-local `*.spec.md` files as the authored source of truth.
+
+## Recommended pipeline
+
+1. Discover `*.spec.md` files in the target repository.
+2. Extract structured fenced blocks.
+3. Normalize them into a machine-readable intermediate form.
+4. Audit code, tests, docs, commands, and workflows against the normalized model.
+5. Emit findings, coverage summaries, or action plans externally.
+
+## Do not require package-local helper code
+
+The spec technique should remain standalone inside the target repo.
+
+Tooling should avoid requiring:
+
+- runtime dependencies
+- custom build steps inside the package
+- framework-specific generators
+
+## Respect the authored boundary
+
+Client implementations should treat these as authored:
+
+- subject metadata
+- requirements
+- scenarios
+- verification expectations
+- exceptions
+
+Client implementations should derive these externally:
+
+- missing verification
+- drift
+- findings
+- action plans
+- approval and remediation state
+
+## Good first capabilities
+
+The first useful capabilities are:
+
+- parse `spec-meta`
+- parse and normalize structured blocks
+- verify required blocks are present
+- emit a normalized JSON index
+- trace requirements to expected verification surfaces
+
+From there, deeper auditing and agentic remediation can be layered on safely.

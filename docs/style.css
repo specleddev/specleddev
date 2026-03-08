@@ -1,0 +1,16 @@
+#content-area {
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  h5 {
+    font-weight: 500;
+  }
+
+  h6 {
+    font-weight: 400;
+  }
+}
+
+.card img {
+  object-fit: contain;
+}
+

@@ -1,0 +1,61 @@
+---
+title: "Theory"
+description: "The reasoning behind Spec Led Development."
+---
+
+Spec Led Development is built on a simple observation:
+
+software intent is real, but it is rarely captured in a form that stays close to the code and remains useful to both humans and machines.
+
+## Specs are necessary, but insufficient on their own
+
+Specs are valuable because they capture ideal state:
+
+- what a package, service, API, or module is intended to do
+- what invariants it must preserve
+- what behaviors are public and stable
+- what verification should exist
+
+But specs do not replace code, tests, or architecture.
+
+They are a contract layer, not the running system.
+
+## Code and specs are both lossy
+
+Spec-to-code translation is lossy because a spec cannot fully capture every implementation decision.
+
+Code-to-spec translation is lossy because code does not fully preserve intent, scope, rationale, or non-goals.
+
+The right goal is not perfect round-tripping.
+
+The right goal is bounded, reviewable alignment between intended behavior and actual implementation.
+
+## Tests are executable evidence
+
+Tests matter because they provide proof surfaces:
+
+- unit tests pin local semantics
+- integration tests pin composed behavior
+- contract tests pin public interface behavior
+- regression tests pin past failure classes
+- docs and policy checks pin user-facing and repo-facing truth
+
+In Spec Led Development, tests are not the spec. They are evidence that parts of the spec are being satisfied.
+
+## LLMs are remediation engines
+
+LLMs are powerful but non-deterministic. That makes them risky when asked to infer intent from vague prose.
+
+Spec Led gives them a safer role:
+
+- detect or receive a structured finding
+- act against a declared desired state
+- make a bounded change
+- verify the result
+
+This makes agents operators in a maintenance loop, not oracles that define the system.
+
+## The theory in one sentence
+
+Declare the ideal locally, verify it continuously, derive drift externally, and use tools or agents to restore alignment.
+

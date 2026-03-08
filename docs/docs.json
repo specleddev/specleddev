@@ -1,0 +1,56 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Spec Led",
+  "colors": {
+    "primary": "#727272",
+    "light": "#bfbfbf",
+    "dark": "#353535"
+  },
+  "favicon": "/favicon.svg",
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/specleddev/docs"
+    }
+  },
+  "navigation": {
+    "pages": [
+      "home",
+      "what-is-spec-led",
+      "theory",
+      "specification",
+      {
+        "group": "Examples",
+        "pages": [
+          "examples/jido-action"
+        ]
+      },
+      {
+        "group": "For tool builders",
+        "pages": [
+          "implementation/adding-specled-support"
+        ]
+      }
+    ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/overview",
+      "destination": "/home"
+    }
+  ]
+}
+
