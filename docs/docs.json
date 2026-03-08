@@ -21,7 +21,7 @@
   },
   "navigation": {
     "pages": [
-      "home",
+      "index",
       "what-is-spec-led",
       "theory",
       "specification",
@@ -54,7 +54,7 @@
   "redirects": [
     {
       "source": "/overview",
-      "destination": "/home"
+      "destination": "/"
     }
   ]
 }
