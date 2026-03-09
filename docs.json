@@ -23,6 +23,7 @@
     "pages": [
       "home",
       "what-is-spec-led",
+      "background-theory",
       "theory",
       "specification",
       {
