@@ -4,7 +4,7 @@ Public docs site for `specled.dev`.
 
 ## Stack
 
-- Plain Mintlify source content in `docs/`
+- Plain Mintlify source content at repo root
 - Mintlify-hosted frontend
 - GitHub-backed docs configuration
 
@@ -16,11 +16,11 @@ mise exec node@20 -- npm run dev
 
 ## Structure
 
-- `docs/docs.json`
+- `docs.json`
   - Mintlify site configuration
-- `docs/*.mdx`
+- `*.mdx`
   - top-level docs pages
-- `docs/examples/`
+- `examples/`
   - concrete examples
-- `docs/implementation/`
+- `implementation/`
   - guidance for tool builders
