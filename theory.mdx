@@ -1,9 +1,9 @@
 ---
 title: "Background Theory"
-description: "The core thinking behind Spec Led Dev."
+description: "Why specs need to live inside an intent verification loop."
 ---
 
-Spec Led Dev starts from one simple observation:
+Spec Led starts from one simple observation:
 
 software changes faster than shared understanding.
 
@@ -15,63 +15,57 @@ That creates the same failures again and again:
 - new team members take too long to understand what matters
 - AI makes plausible changes without enough context
 
-## The core problem
+## Specs are not enough by themselves
 
-Code explains *how* a system works, but it does not always explain *what must stay true*.
+A spec helps, but only if the team keeps using it.
 
-Teams need a stable way to declare intent inside the repository itself.
+If nobody checks the spec after the first draft, drift comes back.
 
-## The core idea
+That is why the core idea is a loop, not just a file.
 
-Write small, explicit spec files next to the code.
+## The intent verification loop
 
-Each spec describes:
+The loop is:
 
-- the subject being specified
-- the requirements that must hold
-- scenarios that show expected behavior
-- verification targets that should prove the claim
-- exceptions when a deviation is intentionally approved
+1. a human has an idea
+2. a human writes or updates the spec
+3. a human and an AI build code, tests, and docs from that spec
+4. the project verifies the result
+5. a human reviews the result and adjusts the spec or the code
+6. CI runs the same checks to catch drift early
 
-This creates a shared contract for humans and AI.
+This is what makes specs operational.
 
-## Why this works
+## Why humans stay in the loop
 
-Spec Led Dev keeps a clean split:
+AI can help with implementation and drift repair.
 
-- authored specs declare ideal state
-- tooling derives drift and findings
-- exceptions are explicit approvals
+AI should not be the final authority on what the system is for.
 
-This avoids mixing desired behavior with operational status.
+Humans still decide intent, approve changes, and resolve ambiguity.
 
-## Humans and AI, same source of truth
+## Why CI matters
 
-Humans use specs to understand a codebase quickly in GitHub.
+The shared gate should live in CI.
 
-AI uses specs as bounded instructions when making changes.
+That is where the team sees drift together.
 
-That makes AI more useful for maintenance work:
+Some teams also run the same checks on `pre-commit`.
 
-- update code toward declared intent
-- update tests and docs with the change
-- reduce guesswork during remediation
+That can help catch issues earlier, but CI is the main guard.
 
-## Language-agnostic by design
+## Why this can stay simple
 
-The model is based on conceptual subjects, not programming language syntax.
+The starter version does not need heavy governance.
 
-The same structure works for:
+It can start with:
 
-- packages
-- modules
-- APIs
-- services
-- workflows
-- repository policies
+- one spec file
+- one check command
+- one CI check
 
-## Practical outcome
+Larger systems can add more structure later.
 
-Spec Led Dev does not try to generate an entire system from prose.
+## The practical result
 
-It gives teams a durable contract layer so software can evolve without losing meaning.
+Specs help because they stay inside a loop that keeps intent, code, tests, docs, and CI tied together.

@@ -1,33 +1,47 @@
 ---
 title: "Adding Spec Led Support"
-description: "How parsers, auditors, and control planes should consume Spec Led documents."
+description: "How tools should read specs and support the loop."
 ---
 
-Spec Led is designed so codebases can author specs locally without taking a dependency on a toolchain.
+Spec Led is meant to be portable.
 
-That means client implementations should treat repo-local `*.spec.md` files as the authored source of truth.
+That means tools should read repo-local specs without forcing each project to copy large helper scripts.
 
-## Recommended pipeline
+## Beta tool story
 
-1. Discover `*.spec.md` files in the target repository.
-2. Extract structured fenced blocks.
-3. Normalize them into a machine-readable intermediate form.
-4. Audit code, tests, docs, commands, and workflows against the normalized model.
-5. Emit findings, coverage summaries, or action plans externally.
+For beta, we want three tool surfaces:
 
-## Do not require package-local helper code
+- a TypeScript client and CLI
+- an Elixir client
+- a reusable GitHub Action
 
-The spec technique should remain standalone inside the target repo.
+This lets teams adopt the loop in CI without copying custom validation scripts into every repo.
 
-Tooling should avoid requiring:
+## What tools should do
 
-- runtime dependencies
-- custom build steps inside the package
-- framework-specific generators
+Good first capabilities:
+
+1. find spec files
+2. parse structured blocks
+3. normalize them into a stable machine model
+4. validate the authored structure
+5. run verification targets
+6. emit human-readable and machine-readable results
+
+## Two verification layers
+
+The mature form of the system has two layers:
+
+- governance verification
+- executable conformance
+
+Starter tools can begin with the first layer and a small behavioral check.
+
+Larger systems can add stronger traceability and conformance over time.
 
 ## Respect the authored boundary
 
-Client implementations should treat these as authored:
+Tools should treat these as authored:
 
 - subject metadata
 - requirements
@@ -35,22 +49,21 @@ Client implementations should treat these as authored:
 - verification expectations
 - exceptions
 
-Client implementations should derive these externally:
+Tools should derive these externally:
 
 - missing verification
 - drift
 - findings
+- reports
 - action plans
-- approval and remediation state
+- CI summaries
 
-## Good first capabilities
+## Keep adoption easy
 
-The first useful capabilities are:
+The starter path should aim for:
 
-- parse `spec-meta`
-- parse and normalize structured blocks
-- verify required blocks are present
-- emit a normalized JSON index
-- trace requirements to expected verification surfaces
+- one folder
+- one check command
+- one GitHub Action
 
-From there, deeper auditing and agentic remediation can be layered on safely.
+Anything more advanced should come later through progressive disclosure.

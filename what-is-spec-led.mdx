@@ -1,18 +1,27 @@
 ---
 title: "What Is Spec Led?"
-description: "A simple way to write down what your code is supposed to do."
+description: "A simple way to keep intent clear as code changes."
 ---
 
-Spec Led Dev is a simple way to write down what your code is supposed to do.
+Spec Led is a simple way to keep intent clear as code changes.
 
-The spec lives in the repo, next to the code, so humans and AI can both use it.
+It puts a small spec in the repo, next to the code.
 
-It helps with common problems:
+Humans can read it.
+AI can use it.
+The team can check it as the code changes.
 
-- code changes, but nobody updates the docs
-- tests pass, but the code still drifts from the original intent
-- new team members cannot get up to speed fast enough
-- AI makes changes, but it is hard to tell if those changes fit the real contract
+## The main point
+
+Specs are useful because they are part of a loop.
+
+The loop is:
+
+1. write intent
+2. build from it
+3. verify it
+
+Without that loop, a spec is just another document.
 
 ## The basic idea
 
@@ -21,7 +30,7 @@ You write short spec files for the important parts of a codebase.
 Those specs say:
 
 - what the code should do
-- what should stay stable
+- what should stay true
 - what tests or checks should prove it
 - any approved exceptions
 
@@ -29,17 +38,27 @@ Those specs say:
 
 Because the spec is in the repo:
 
-- humans can read it in GitHub and get up to speed faster
-- AI has a clearer target when it writes or fixes code
-- teams can see when the code has drifted from the intended behavior
-- AI can help bring the code back in line when drift happens
+- humans can get up to speed faster
+- AI has a clearer target
+- tests and docs have a contract to line up with
+- drift is easier to catch in CI
+- the team has one place to point to when behavior changes
 
-## What it is good for
+## Who this is for
 
-- packages
-- modules
+- TypeScript apps and libraries
 - APIs
 - services
+- tools
 - workflows
 
-It is meant to work in any language.
+It can work in other languages too.
+
+## What it is not
+
+- not a code generator
+- not a replacement for tests
+- not a replacement for design work
+- not a magic way to remove ambiguity
+
+It is a small contract layer that helps teams keep meaning attached to the code.

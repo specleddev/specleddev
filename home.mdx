@@ -1,85 +1,52 @@
 ---
 title: "Overview"
-description: "Put clear specs next to your code so humans and AI know what the code is supposed to do."
+description: "People build software. Not LLMs."
 ---
 
-Write specs your AI can follow.
+Software changes faster than shared understanding among the people building it.
 
-Put clear specs next to your code so humans and AI can see what the code is supposed to do.
+**That is the core problem.**
 
-## What problems does this solve?
+Spec Led Development helps teams document intent, build with it, and verify it as the code changes.
 
-Most software systems drift in predictable ways:
+## The problem
 
-- AI can write code fast, but it often misses the point.
-- Tests may pass, but the code can still drift from what you meant.
-- Docs get old.
-- New team members open GitHub and still cannot tell how the project is supposed to work.
-- Important rules live in someone's head instead of in the repo.
-- When the code drifts, there is no clear way to bring it back in line.
+When shared understanding slips, teams get:
 
-## What Spec Led Dev gives you
+- code that passes tests but still misses the point
+- docs that go stale
+- AI changes with weak context
+- behavior that drifts over time
 
-- A simple way to write down what a package, module, API, or workflow should do
-- Spec files that live in GitHub with the code
-- A clearer way for humans to get up to speed on the project
-- A clear target for tests, docs, and AI changes
-- A way to spot drift when the code no longer matches the intent
-- A way for AI to help fix drift and bring the code back in line
-- A format that works in any language
+## The loop
 
-## How teams use it
+Keep one small loop alive:
 
-- Write a short spec for each important part of the code
-- Keep the spec in the repo
-- Use the spec to help new team members understand the project faster
-- Link the spec to tests, docs, and checks
-- Use the spec to review changes
-- Use the spec to guide AI when it writes or fixes code
-- Use the spec to help AI correct code that has drifted from the original intent
+1. Write one spec for one important thing.
+2. Build code, tests, and docs from that spec.
+3. Run one check locally and again in CI.
 
-## Built for humans and AI
+Humans stay in the loop. Specs keep the intent close to the code.
 
-Spec Led Dev helps humans get up to speed faster and helps AI make better changes.
+## Start here
 
-It also gives AI a clear way to help fix code when the project starts to drift from what it is supposed to do.
-
-## Get started
-
-<CardGroup cols={2}>
-  <Card
-    title="What is Spec Led?"
-    icon="lightbulb"
-    href="/what-is-spec-led"
-  >
-    Read the plain-language version of the idea.
+<CardGroup cols={3}>
+  <Card title="Get started" icon="rocket" href="/getting-started">
+    See the simplest starter flow.
   </Card>
-  <Card
-    title="Problems it solves"
-    icon="brain"
-    href="/theory"
-  >
-    See where teams struggle and how Spec Led Dev helps.
+  <Card title="What is Spec Led?" icon="lightbulb" href="/what-is-spec-led">
+    Read the plain-language version.
   </Card>
-  <Card
-    title="Specification"
-    icon="file-code"
-    href="/specification"
-  >
-    See the file format and the core parts of a spec.
+  <Card title="Theory" icon="brain" href="/theory">
+    Learn why specs need a verification loop.
   </Card>
-  <Card
-    title="Add support"
-    icon="gear"
-    href="/implementation/adding-specled-support"
-  >
-    Build tools that can read and use Spec Led docs.
+  <Card title="Specification" icon="file-code" href="/specification">
+    See the core file shape.
   </Card>
-  <Card
-    title="`jido_action` example"
-    icon="code"
-    href="/examples/jido-action"
-  >
-    See how this works in a real package.
+  <Card title="How it grows" icon="layers" href="/progressive-disclosure">
+    See how teams add structure later.
+  </Card>
+  <Card title="Beta plan" icon="flag" href="/beta-plan">
+    See what we are planning to ship first.
   </Card>
 </CardGroup>

@@ -22,10 +22,12 @@
   "navigation": {
     "pages": [
       "home",
+      "getting-started",
       "what-is-spec-led",
       "theory",
-      "problems-it-solves",
       "specification",
+      "progressive-disclosure",
+      "beta-plan",
       {
         "group": "Use Cases",
         "pages": [

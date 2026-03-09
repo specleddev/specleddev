@@ -1,0 +1,154 @@
+---
+title: "Beta Plan"
+description: "The first beta is small on purpose."
+---
+
+The first beta is meant to prove one simple idea:
+
+specs help when they stay inside a loop.
+
+We are starting with TypeScript because it is the easiest place to teach that loop clearly.
+
+## Beta goal
+
+Ship a TypeScript-first starter flow that is:
+
+- easy to explain
+- easy to try
+- easy to keep in CI
+- portable enough to prove the method is not tied to one language
+
+## What beta users should be able to do
+
+A team should be able to:
+
+1. add a `specs/` folder
+2. write one spec file
+3. run `spec check`
+4. add one GitHub Action
+5. catch drift before merge
+
+If beta users cannot do that quickly, the beta is still too hard.
+
+## What we are shipping first
+
+For the starter path:
+
+- a clear getting started guide
+- a simple core spec format
+- use cases
+- one check command
+- one GitHub Action for CI
+
+For portability:
+
+- a TypeScript client
+- an Elixir client
+
+For the public story:
+
+- clear theory
+- progressive disclosure
+- a small starter path first
+
+## The rollout plan
+
+We are working in this order:
+
+1. lock the starter flow
+2. define `spec check`
+3. package the GitHub Action
+4. finish the docs site
+5. prove the same model in TypeScript and Elixir
+6. open the beta and collect comments
+
+## What each phase needs
+
+### Phase 1: Lock the starter flow
+
+- pick the default folder layout
+- pick the default commands
+- keep the starter path to one file, one command, and one CI check
+
+### Phase 2: Define `spec check`
+
+- make the output easy to read
+- make drift easy to spot
+- keep the first version small and stable
+
+### Phase 3: Package the GitHub Action
+
+- let teams use the check without copying repo scripts
+- support a simple zero-config path first
+- show useful logs in CI
+
+### Phase 4: Finish the docs site
+
+- explain the theory in plain language
+- teach the TypeScript starter flow first
+- show how the system grows later through progressive disclosure
+
+### Phase 5: Prove portability
+
+- show the same core model in TypeScript
+- show the same core model in Elixir
+- prove this is a method, not a language-specific trick
+
+### Phase 6: Open beta
+
+- provide a public feedback path
+- collect friction points
+- refine the starter story before wider release
+
+## What is not in the first beta
+
+Not everything needs to ship in the first beta.
+
+We are not trying to start with:
+
+- the most advanced governance model
+- every language
+- every framework
+- every large-system conformance feature
+
+Those come later.
+
+## Why TypeScript first
+
+TypeScript is the easiest place to teach the method broadly.
+
+Many teams already use:
+
+- GitHub Actions
+- Node-based tooling
+- fast CLI workflows
+- AI coding tools inside TypeScript repos
+
+That makes TypeScript the best place to make the starter story simple.
+
+## What stays optional
+
+The starter path should stay small.
+
+That means the beta should not require:
+
+- pre-commit hooks
+- heavy traceability
+- ADR workflows
+- large-system conformance rules
+
+Those are valid later steps, not starter steps.
+
+## The public promise
+
+The beta should make one promise and keep it:
+
+You can write down intent, build from it, and keep it checked in CI without a lot of ceremony.
+
+If the beta does that well, we can grow the richer system later.
+
+## What success looks like
+
+- a TypeScript developer can understand the starter flow fast
+- a team can adopt the CI loop in one pull request
+- feedback is about edge cases and ergonomics, not basic confusion

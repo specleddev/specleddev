@@ -19,14 +19,14 @@ You ship the feature with intent, tests, and docs aligned in one loop.
 2. Define requirements, scenarios, and verification targets.
 3. Ask Codex to implement only what the spec defines.
 4. Ask Codex to update tests and docs in the same change.
-5. Run strict spec verification and fix drift before merge.
+5. Run spec check and fix drift before merge.
 
 ## Codex example prompt
 
 ```text
-Implement this feature strictly from the spec in .spec/specs.
+Implement this feature strictly from the specs/ folder.
 Update tests and docs to match the new requirements and scenarios.
-Run spec verification and resolve all warnings.
+Run spec check and resolve all warnings.
 Show what changed in spec, code, tests, and docs.
 ```
 
@@ -35,13 +35,12 @@ Show what changed in spec, code, tests, and docs.
 ```text
 Use the spec as the implementation contract for this feature.
 Apply the code change, then align tests and docs.
-Run spec checks and return unresolved drift findings.
+Run spec check and return unresolved drift findings.
 ```
 
 ## Verify
 
 - Confirm new requirements are covered by tests or commands.
 - Confirm docs mention the new behavior.
-- Confirm strict verification passes.
+- Confirm spec check passes.
 - Confirm no extra behavior was added outside the spec.
-

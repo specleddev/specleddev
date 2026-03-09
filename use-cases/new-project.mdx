@@ -15,18 +15,18 @@ You get a repo where specs, code, tests, and docs stay aligned from the first co
 
 ## High-level walkthrough
 
-1. Create your spec workspace.
-2. Define package-level and module-level specs for the first core features.
+1. Create a `specs/` folder.
+2. Write one small spec for the first important feature.
 3. Ask Codex to build the code from those specs.
 4. Ask Codex to update tests and docs to match.
-5. Run spec validation and fix any drift before merge.
+5. Run `spec check` and let CI run the same check before merge.
 
 ## Codex example prompt
 
 ```text
-Read .spec/specs and implement the first version of this module.
+Read the specs/ folder and implement the first version of this module.
 Then update tests and docs so they match the spec.
-Run spec verification and show any drift findings.
+Run spec check and show any drift findings.
 Do not add behavior that is not in the spec.
 ```
 
@@ -35,13 +35,11 @@ Do not add behavior that is not in the spec.
 ```text
 Use the specs in this repo as the source of truth.
 Implement only the defined behavior, then align tests and docs.
-Run the project's spec validation command and report gaps.
+Run spec check and report gaps.
 ```
 
 ## Verify
 
-- Run your spec planning command.
-- Run strict verification with debug output.
-- Confirm there are no missing requirement coverage warnings.
+- Run spec check locally.
+- Confirm CI runs the same check.
 - Confirm tests pass.
-
