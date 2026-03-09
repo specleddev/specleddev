@@ -1,44 +1,77 @@
 ---
-title: "Problems It Solves"
-description: "Common problems in modern codebases that Spec Led Dev helps fix."
+title: "Background Theory"
+description: "The core thinking behind Spec Led Dev."
 ---
 
-Modern teams move fast, but the meaning of the code often gets lost.
+Spec Led Dev starts from one simple observation:
 
-## Common problems
+software changes faster than shared understanding.
 
-- The code works, but it does the wrong thing
-- Docs and code stop matching
-- Tests do not explain the real contract
-- AI changes are hard to trust
-- New team members take too long to get up to speed
-- Important behavior lives in team memory instead of GitHub
-- When the code drifts, there is no clear way to bring it back in line
+That creates the same failures again and again:
 
-## What Spec Led Dev changes
+- behavior drifts from intent
+- tests pass but the contract is unclear
+- docs lag behind code
+- new team members take too long to understand what matters
+- AI makes plausible changes without enough context
 
-Spec Led Dev gives teams a simple file in the repo that says what the code is supposed to do.
+## The core problem
 
-That helps because:
+Code explains *how* a system works, but it does not always explain *what must stay true*.
 
-- humans can understand the project faster
-- AI has a clearer target
-- tests and docs have something concrete to line up with
-- drift is easier to spot
-- AI can help fix drift instead of making it worse
+Teams need a stable way to declare intent inside the repository itself.
 
-## Why this matters for AI
+## The core idea
 
-AI is good at making changes, but it still needs clear direction.
+Write small, explicit spec files next to the code.
 
-Without a spec, AI has to guess.
+Each spec describes:
 
-With a spec, AI can:
+- the subject being specified
+- the requirements that must hold
+- scenarios that show expected behavior
+- verification targets that should prove the claim
+- exceptions when a deviation is intentionally approved
 
-- make changes that fit the intended behavior
-- update tests and docs with the code
-- help bring the code back in line when it drifts
+This creates a shared contract for humans and AI.
 
-## In plain terms
+## Why this works
 
-Spec Led Dev helps teams keep the meaning of the code clear as the code changes.
+Spec Led Dev keeps a clean split:
+
+- authored specs declare ideal state
+- tooling derives drift and findings
+- exceptions are explicit approvals
+
+This avoids mixing desired behavior with operational status.
+
+## Humans and AI, same source of truth
+
+Humans use specs to understand a codebase quickly in GitHub.
+
+AI uses specs as bounded instructions when making changes.
+
+That makes AI more useful for maintenance work:
+
+- update code toward declared intent
+- update tests and docs with the change
+- reduce guesswork during remediation
+
+## Language-agnostic by design
+
+The model is based on conceptual subjects, not programming language syntax.
+
+The same structure works for:
+
+- packages
+- modules
+- APIs
+- services
+- workflows
+- repository policies
+
+## Practical outcome
+
+Spec Led Dev does not try to generate an entire system from prose.
+
+It gives teams a durable contract layer so software can evolve without losing meaning.

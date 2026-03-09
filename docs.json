@@ -23,8 +23,8 @@
     "pages": [
       "home",
       "what-is-spec-led",
-      "background-theory",
       "theory",
+      "problems-it-solves",
       "specification",
       {
         "group": "Examples",
@@ -56,6 +56,10 @@
     {
       "source": "/overview",
       "destination": "/home"
+    },
+    {
+      "source": "/background-theory",
+      "destination": "/theory"
     }
   ]
 }
