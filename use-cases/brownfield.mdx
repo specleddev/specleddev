@@ -1,0 +1,46 @@
+---
+title: "Brownfield Project"
+description: "Adopt Spec Led in an existing codebase without stopping delivery."
+---
+
+Use this when a project already has code, tests, and docs, but intent is unclear.
+
+## Problem
+
+Legacy projects have behavior spread across code, tests, docs, and team memory. AI changes are risky because there is no clear contract.
+
+## Outcome
+
+You get a baseline spec that reflects current behavior, then tighten it over time.
+
+## High-level walkthrough
+
+1. Pick one critical area first, not the whole repo.
+2. Write a spec that describes current behavior and known constraints.
+3. Link that spec to existing tests and docs in verification.
+4. Run spec verification to surface missing coverage and weak spots.
+5. Fix one drift item at a time and keep iterating.
+
+## Codex example prompt
+
+```text
+Start with module X only.
+Read current code, tests, and docs, then write a spec that matches real behavior.
+Do not change runtime behavior yet unless needed for correctness.
+Run spec verification and list missing coverage.
+```
+
+## Any coding agent prompt
+
+```text
+Create a baseline spec for the selected module from existing behavior.
+Map spec claims to current tests and docs.
+Run spec checks and report what is not covered yet.
+```
+
+## Verify
+
+- Confirm the spec matches current shipped behavior.
+- Confirm each key requirement has at least one verification reference.
+- Track unresolved gaps as explicit follow-up work.
+

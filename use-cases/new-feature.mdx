@@ -1,0 +1,47 @@
+---
+title: "New Feature"
+description: "Ship a feature with a clear spec-first workflow for humans and coding agents."
+---
+
+Use this when adding net-new behavior to an existing project.
+
+## Problem
+
+Feature work often lands with partial tests, stale docs, or AI-generated edge cases nobody asked for.
+
+## Outcome
+
+You ship the feature with intent, tests, and docs aligned in one loop.
+
+## High-level walkthrough
+
+1. Add or update the spec for the new feature before coding.
+2. Define requirements, scenarios, and verification targets.
+3. Ask Codex to implement only what the spec defines.
+4. Ask Codex to update tests and docs in the same change.
+5. Run strict spec verification and fix drift before merge.
+
+## Codex example prompt
+
+```text
+Implement this feature strictly from the spec in .spec/specs.
+Update tests and docs to match the new requirements and scenarios.
+Run spec verification and resolve all warnings.
+Show what changed in spec, code, tests, and docs.
+```
+
+## Any coding agent prompt
+
+```text
+Use the spec as the implementation contract for this feature.
+Apply the code change, then align tests and docs.
+Run spec checks and return unresolved drift findings.
+```
+
+## Verify
+
+- Confirm new requirements are covered by tests or commands.
+- Confirm docs mention the new behavior.
+- Confirm strict verification passes.
+- Confirm no extra behavior was added outside the spec.
+

@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Spec Led Dev",
+  "name": "Spec Led Development",
   "colors": {
     "primary": "#727272",
     "light": "#bfbfbf",
@@ -26,6 +26,15 @@
       "theory",
       "problems-it-solves",
       "specification",
+      {
+        "group": "Use Cases",
+        "pages": [
+          "use-cases/new-project",
+          "use-cases/brownfield",
+          "use-cases/new-feature",
+          "use-cases/bug-fix"
+        ]
+      },
       {
         "group": "Examples",
         "pages": [
