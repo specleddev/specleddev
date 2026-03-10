@@ -1,5 +1,5 @@
 ---
-title: "Brownfield Project"
+title: "Brownfield"
 description: "Adopt Spec Led in an existing codebase without stopping delivery."
 ---
 
@@ -18,7 +18,7 @@ You get a baseline spec that reflects current behavior, then tighten it over tim
 1. Pick one critical area first, not the whole repo.
 2. Write a spec that describes current behavior and known constraints.
 3. Link that spec to existing tests and docs in verification.
-4. Run spec check to surface missing coverage and weak spots.
+4. Run `npx specled verify` to surface missing coverage and weak spots.
 5. Fix one drift item at a time and keep iterating.
 
 ## Codex example prompt
@@ -27,7 +27,7 @@ You get a baseline spec that reflects current behavior, then tighten it over tim
 Start with module X only.
 Read current code, tests, and docs, then write a spec that matches real behavior.
 Do not change runtime behavior yet unless needed for correctness.
-Run spec check and list missing coverage.
+Run npx specled verify and list missing coverage.
 ```
 
 ## Any coding agent prompt
@@ -35,7 +35,7 @@ Run spec check and list missing coverage.
 ```text
 Create a baseline spec for the selected module from existing behavior.
 Map spec claims to current tests and docs.
-Run spec check and report what is not covered yet.
+Run npx specled verify and report what is not covered yet.
 ```
 
 ## Verify

@@ -1,138 +1,706 @@
 ---
 title: "Specification"
-description: "The small core model for a Spec Led document."
+description: "Version 1.0 of the portable Spec Led Development specification."
 ---
 
-Start small.
+## Status of this specification
 
-A Spec Led document is just a short file that says:
+This document defines Version `1.0` of the portable core specification for Spec Led Development.
 
-- what this thing is
-- what must stay true
-- what example behavior should look like
-- what evidence should prove it
+Its purpose is simple:
 
-## The core parts
+- define the authored source format
+- define the portable core data model
+- define the verification loop
+- define the minimum behavior required for independent implementations
 
-### Subject
+This document is written so that teams can implement the same model in different languages and toolchains.
 
-The thing you are writing about.
+Unless a section is explicitly marked non-normative, the requirements in this document are normative.
 
-Examples:
+Background and rationale are covered on [Theory](/theory). This page defines the specification itself.
+
+## 1. Scope
+
+This specification defines the portable core of Spec Led Development.
+
+It defines:
+
+- the canonical `.spec/` workspace
+- the authored specification file format
+- the core entities and their relationships
+- the logical verification operations
+- the derived state contract
+- the conformance requirements for repositories, tools, and CI integrations
+
+This specification does not define:
+
+- a required programming language
+- a required parser implementation
+- a required CLI name
+- a required UI
+- organization-specific governance overlays
+- proposal, ADR, or control-plane systems beyond the portable core
+
+## 2. Normative language
+
+The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `SHOULD NOT`, `MAY`, and `OPTIONAL` in this document are to be interpreted as normative requirement terms.
+
+## 3. Conformance classes
+
+This specification defines four conformance classes.
+
+### 3.1 Repository conformance
+
+A repository conforms if it:
+
+- uses the canonical `.spec/` workspace
+- authors specification files according to this document
+- keeps authored and derived files separate
+
+### 3.2 Authoring tool conformance
+
+An authoring tool conforms if it can:
+
+- initialize a conforming workspace
+- parse conforming authored specification files
+- validate the required structure and references
+
+### 3.3 Verification tool conformance
+
+A verification tool conforms if it can:
+
+- normalize authored specification files
+- derive findings
+- write a conforming `.spec/state.json`
+- execute the strict check behavior defined in this document
+
+### 3.4 CI integration conformance
+
+A CI integration conforms if it:
+
+- executes the strict check operation
+- fails the build when the repository is not conformant
+
+## 4. Design requirements
+
+Spec Led Development is built around the following requirements:
+
+- intent MUST stay local to the repository
+- authored specs MUST be readable by humans
+- authored specs MUST be structured enough for machine use
+- authored specs MUST describe ideal state, not live operational state
+- drift and findings MUST be derived by tools, not authored into the source
+- humans MUST remain responsible for intent
+- tooling MUST be portable across languages and runtimes
+
+## 5. Architecture model
+
+Spec Led Development has two layers and one loop.
+
+### 5.1 Authored layer
+
+The authored layer is the human-owned contract.
+
+It consists of:
+
+- `.spec/README.md`
+- `.spec/specs/*.spec.md`
+
+The authored layer states what must stay true.
+
+### 5.2 Derived layer
+
+The derived layer is the tool-owned operational state.
+
+It consists of:
+
+- `.spec/state.json`
+
+The derived layer records the current normalized index and the current verification findings.
+
+### 5.3 Intent verification loop
+
+The authored and derived layers are tied together by an intent verification loop:
+
+1. a human defines intent
+2. a human or AI drafts or updates the specification
+3. humans and AI implement code, tests, and docs against that specification
+4. tooling verifies the implementation against the specification
+5. the result is reviewed and corrected
+6. CI repeats the strict verification step before merge
+
+Without this loop, a specification is only a document.
+
+## 6. Workspace model
+
+The canonical workspace root is `.spec/`.
+
+The canonical workspace layout is:
+
+```text
+.spec/
+  README.md
+  state.json
+  specs/
+    spec_system.spec.md
+    package.spec.md
+    *.spec.md
+```
+
+The file roles are:
+
+- `.spec/README.md`
+  - authored
+  - explains local workflow and conventions
+- `.spec/state.json`
+  - generated
+  - stores normalized index data and findings
+- `.spec/specs/spec_system.spec.md`
+  - authored
+  - specifies the workspace itself
+- `.spec/specs/package.spec.md`
+  - authored
+  - SHOULD exist when the repository has a package-, service-, or repository-level contract
+- `.spec/specs/*.spec.md`
+  - authored
+  - subject specification files
+
+A conforming workspace:
+
+- MUST use `.spec/` as the canonical root
+- MUST keep authored and generated files separate
+- MUST NOT treat `.spec/state.json` as authored input
+
+Tools MAY support legacy layouts for migration, but those layouts are non-conforming under Version `1.0`.
+
+## 7. Authored document model
+
+### 7.1 File convention
+
+Every authored specification file:
+
+- MUST use the file extension `*.spec.md`
+- MUST be valid UTF-8 Markdown text
+- MAY contain arbitrary narrative prose outside structured blocks
+
+Narrative prose exists for humans.
+
+Structured blocks exist for machines.
+
+If narrative prose conflicts with structured block content, the structured block content MUST be treated as authoritative for machine processing.
+
+### 7.2 Standard block types
+
+Version `1.0` defines five standard block types:
+
+- `spec-meta`
+- `spec-requirements`
+- `spec-scenarios`
+- `spec-verification`
+- `spec-exceptions`
+
+### 7.3 Block occurrence rules
+
+In a conforming file:
+
+- exactly one `spec-meta` block MUST appear
+- each optional standard block type MAY appear zero or one time
+- a file MUST NOT contain more than one block of the same standard type
+
+### 7.4 Block serialization
+
+The contents of each standard block MUST be a valid YAML `1.2` document whose data model is JSON-compatible.
+
+This means:
+
+- JSON text is valid
+- YAML mappings and sequences are valid
+- implementation-specific YAML features such as custom tags, anchors, and aliases MUST NOT be required for conformance
+
+### 7.5 Unknown blocks and extensions
+
+Authors MAY include additional fenced blocks.
+
+Generic tools:
+
+- SHOULD ignore unknown block types by default
+- MAY emit an informational finding for unknown `spec-*` block types
+- MUST NOT reinterpret unknown block types as standard blocks
+
+## 8. Core data model
+
+Version `1.0` defines five core entity kinds:
+
+- subject
+- requirement
+- scenario
+- verification
+- exception
+
+This model is claim-based.
+
+It describes what must be true, how that truth is illustrated, how it is verified, and where deviations are explicitly approved.
+
+### 8.1 Subject
+
+The subject is the thing being specified.
+
+Examples include:
 
 - package
 - module
-- feature
-- service
-- API
+- component
+- endpoint
 - workflow
+- service
+- policy
 
-### Requirement
+The `spec-meta` block MUST deserialize to a mapping object with the following fields.
 
-A short rule about what must be true.
+Required fields:
 
-Good style:
+- `id`
+  - string
+  - unique across the repository
+- `kind`
+  - string
+  - identifies the subject class
+- `status`
+  - string
+  - identifies the lifecycle state of the subject
 
-- clear
-- short
-- testable
-- stable over time
+Optional fields:
 
-### Scenario
+- `surface`
+  - sequence of strings
+  - identifies names, paths, routes, modules, or other exposed surfaces
+- `relationships`
+  - sequence of relationship objects
 
-A concrete example.
+A relationship object MUST contain:
 
-Good style:
+- `kind`
+  - string
+- `target`
+  - identifier string
 
-- `Given ...`
-- `When ...`
-- `Then ...`
+Generic tools SHOULD recognize these relationship kinds:
 
-### Verification
+- `depends_on`
+- `relates_to`
+- `specializes`
+- `verifies`
 
-The evidence you expect to prove the claim.
+### 8.2 Requirement
 
-Examples:
+A requirement is a normative statement of what must hold.
 
-- a test file
-- a docs page
-- a command
-- a CI check
+The `spec-requirements` block MUST deserialize to a sequence of objects.
 
-### Exception
+Each requirement object MUST contain:
 
-An approved exception.
+- `id`
+  - string
+  - unique across the repository
+- `statement`
+  - string
+  - the normative claim
 
-Anything not represented as an exception should be treated as drift by tooling.
+Each requirement object MAY contain:
 
-## Starter file shape
+- `priority`
+  - string
+- `stability`
+  - string
 
-The beta starter path aims at small files inside a `specs/` folder.
+Requirements:
 
-Example:
+- MUST be written as stable claims
+- SHOULD avoid implementation detail when a behavioral claim is sufficient
+- SHOULD be testable or otherwise verifiable
+
+### 8.3 Scenario
+
+A scenario is a concrete illustration of behavior.
+
+The `spec-scenarios` block MUST deserialize to a sequence of objects.
+
+Each scenario object MUST contain:
+
+- `id`
+  - string
+  - unique across the repository
+- `given`
+  - non-empty sequence of strings
+- `when`
+  - non-empty sequence of strings
+- `then`
+  - non-empty sequence of strings
+- `covers`
+  - non-empty sequence of requirement identifiers
+
+Scenarios:
+
+- MUST illustrate one or more requirements
+- MUST NOT replace requirements as the primary normative claims
+
+### 8.4 Verification
+
+A verification record identifies the expected proof surface for one or more requirements.
+
+The `spec-verification` block MUST deserialize to a sequence of objects.
+
+Each verification object MUST contain:
+
+- `kind`
+  - string
+- `target`
+  - string
+- `covers`
+  - non-empty sequence of requirement identifiers
+
+Examples of verification kinds include:
+
+- `test`
+- `doc`
+- `command`
+- `workflow`
+- `contract`
+
+For path-like targets, the path MUST be interpreted relative to the repository root.
+
+Verification records describe expected evidence.
+They do not prove the requirement by themselves.
+
+### 8.5 Exception
+
+An exception is an approved deviation from ideal state.
+
+The `spec-exceptions` block MUST deserialize to a sequence of objects.
+
+Each exception object MUST contain:
+
+- `id`
+  - string
+  - unique across the repository
+- `statement`
+  - string
+  - describes the deviation
+- `covers`
+  - non-empty sequence of requirement identifiers
+
+Each exception object MAY contain:
+
+- `rationale`
+  - string
+
+Any deviation not represented as an exception MUST be treated as drift or a finding by tooling.
+
+## 9. Identifier and reference model
+
+Identifiers are the stable handles of the specification.
+
+All subject, requirement, scenario, and exception identifiers:
+
+- MUST be unique across the repository
+- MUST match the regular expression `^[a-z0-9][a-z0-9._-]*$`
+- SHOULD remain stable over time
+
+Reference rules:
+
+- every `covers` reference in a scenario MUST resolve to an existing requirement identifier
+- every `covers` reference in a verification record MUST resolve to an existing requirement identifier
+- every `covers` reference in an exception MUST resolve to an existing requirement identifier
+- every relationship `target` SHOULD resolve to an existing subject identifier when the target exists in the same repository
+
+## 10. Processing model
+
+This specification defines three logical operations:
+
+- initialize
+- verify
+- check
+
+CLI names are non-normative.
+
+Implementations MAY expose these operations as:
+
+- `npx specled init`
+- `npx specled verify`
+- `npx specled check`
+
+or by any equivalent command surface.
+
+### 10.1 Initialize
+
+The initialize operation prepares a repository for authored specifications.
+
+A conforming initialize operation MUST create:
+
+- `.spec/README.md`
+- `.spec/specs/spec_system.spec.md`
+- the `.spec/specs/` directory
+
+A conforming initialize operation SHOULD create:
+
+- `.spec/specs/package.spec.md`
+
+A conforming initialize operation MAY create:
+
+- `.spec/state.json`
+
+If `.spec/state.json` is not created during initialization, it MUST be created during verification.
+
+### 10.2 Verify
+
+The verify operation is the normal local verification pass.
+
+A conforming verify operation MUST:
+
+1. locate authored `*.spec.md` files under `.spec/specs/`
+2. parse all standard blocks
+3. normalize the authored entities
+4. validate structure, identifiers, and references
+5. validate verification expectations where possible
+6. derive findings
+7. write `.spec/state.json`
+
+At minimum, verify MUST detect:
+
+- malformed Markdown block serialization
+- missing required `spec-meta` blocks
+- duplicate identifiers
+- invalid identifier format
+- unresolved `covers` references
+- missing verification coverage for a requirement that has no covering verification and no covering exception
+- missing file-based verification targets when the target kind is path-like
+
+Verify SHOULD:
+
+- complete even when findings are present
+- reserve non-zero exit status for fatal processing failures
+
+### 10.3 Check
+
+The check operation is the strict gate.
+
+A conforming check operation MUST:
+
+- perform at least the same validation as verify
+- refresh or consume `.spec/state.json`
+- fail with non-zero exit status when unresolved warnings or errors remain
+
+The strict gate for shared development MUST be check, not verify.
+
+Implementations MAY expose the same gate locally, including through pre-commit hooks, but CI is the normative shared enforcement point.
+
+## 11. Derived state model
+
+The derived state file is `.spec/state.json`.
+
+It MUST be valid JSON.
+
+It MUST be generated by tooling.
+
+It MUST NOT be treated as the authored source of truth.
+
+At minimum, `.spec/state.json` MUST contain:
+
+- `specification_version`
+  - string
+  - MUST equal `1.0`
+- `generated_at`
+  - RFC 3339 timestamp string
+- `workspace`
+  - object describing the workspace that was processed
+- `index`
+  - object containing normalized entities
+- `findings`
+  - array of current findings
+- `summary`
+  - object containing counts
+
+### 11.1 Workspace object
+
+The `workspace` object MUST contain:
+
+- `root`
+  - string
+- `spec_count`
+  - integer
+
+### 11.2 Index object
+
+The `index` object MUST contain:
+
+- `subjects`
+  - array
+- `requirements`
+  - array
+- `scenarios`
+  - array
+- `verifications`
+  - array
+- `exceptions`
+  - array
+
+Each normalized entry MUST include enough information to identify:
+
+- the entity identifier, if the entity has one
+- the source file
+- the owning subject
+
+### 11.3 Findings array
+
+Each finding object MUST contain:
+
+- `code`
+  - string
+- `level`
+  - one of `error`, `warning`, or `info`
+- `message`
+  - string
+
+Each finding object MAY contain:
+
+- `file`
+  - string
+- `entity_id`
+  - string
+- `target`
+  - string
+- `suggestion`
+  - string
+
+### 11.4 Summary object
+
+The `summary` object MUST contain integer counts for at least:
+
+- `subjects`
+- `requirements`
+- `scenarios`
+- `verifications`
+- `exceptions`
+- `findings`
+
+## 12. Human and AI roles
+
+This specification assumes a human-in-the-loop workflow.
+
+Humans own intent.
+
+AI systems MAY:
+
+- draft authored specification files
+- propose edits
+- implement code
+- update tests
+- repair drift
+
+AI systems MUST NOT be treated as the final authority on authored intent.
+
+In a conforming workflow:
+
+- the authored specification remains the declared contract
+- the human remains responsible for approving that contract
+
+## 13. CI requirements
+
+A conforming CI integration MUST:
+
+- execute the strict check operation on shared branches or pull requests
+- fail when the repository is non-conformant
+
+The purpose of CI in this model is not convenience.
+
+Its purpose is to keep drift visible at the team level.
+
+## 14. Extensibility and portability
+
+Version `1.0` defines the portable core.
+
+Implementations MAY add:
+
+- additional metadata fields
+- additional relationship kinds
+- additional verification kinds
+- additional derived fields in `.spec/state.json`
+- higher-order governance overlays
+
+Extensions:
+
+- MUST NOT change the meaning of the required core fields
+- MUST NOT remove the authored-versus-derived boundary
+- SHOULD degrade safely when processed by generic tools
+
+This allows multiple languages to share one specification model while keeping room for ecosystem-specific tooling.
+
+## 15. Non-normative example
+
+The following example is non-normative. It illustrates one conforming subject specification file.
 
 ````md
-# User Login API
+# Greeting Endpoint
 
-This API signs in a user and returns a session token.
+This endpoint returns a short greeting.
+
+## Intent
+
+Expose `GET /api/greeting`.
+
+If the request includes a `name` query value, return a greeting.
+If the request does not include `name`, return a clear error.
 
 ```spec-meta
-{
-  "id": "api.user_login",
-  "kind": "api",
-  "status": "active",
-  "surface": ["/api/login"]
-}
+id: api.greeting
+kind: endpoint
+status: active
+surface:
+  - GET /api/greeting
 ```
 
 ## Requirements
 
 ```spec-requirements
-[
-  {
-    "id": "login.valid_credentials",
-    "statement": "When a user sends valid email and password values, the API returns a session token."
-  }
-]
+- id: greeting.name_provided
+  statement: When the request includes a non-empty name query value, the endpoint returns status 200 and a greeting string.
+- id: greeting.name_missing
+  statement: When the request does not include a name query value, the endpoint returns status 400 and an error message.
 ```
 
 ## Scenarios
 
 ```spec-scenarios
-[
-  {
-    "id": "login.success",
-    "given": ["a valid user account"],
-    "when": ["the user sends correct credentials"],
-    "then": ["the API returns a session token"],
-    "covers": ["login.valid_credentials"]
-  }
-]
+- id: greeting.success
+  given:
+    - the server is running
+  when:
+    - a client calls GET /api/greeting?name=Ada
+  then:
+    - the response status is 200
+    - the response body includes "Hello, Ada"
+  covers:
+    - greeting.name_provided
+- id: greeting.missing_name
+  given:
+    - the server is running
+  when:
+    - a client calls GET /api/greeting without a name query value
+  then:
+    - the response status is 400
+    - the response body includes an error message
+  covers:
+    - greeting.name_missing
 ```
 
 ## Verification
 
 ```spec-verification
-[
-  {
-    "kind": "command",
-    "target": "npm test -- login",
-    "covers": ["login.valid_credentials"]
-  }
-]
+- kind: test
+  target: src/app.test.ts
+  covers:
+    - greeting.name_provided
+    - greeting.name_missing
 ```
 ````
-
-## What tools should derive
-
-The spec is the ideal state.
-
-Tools should derive:
-
-- findings
-- drift
-- coverage reports
-- action history
-- CI summaries
-
-Those should not be written into the spec file itself.

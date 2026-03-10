@@ -1,71 +1,192 @@
 ---
-title: "Background Theory"
-description: "Why specs need to live inside an intent verification loop."
+title: "Theory"
+description: "Proven software engineering lessons applied to a modern AI workflow."
 ---
 
-Spec Led starts from one simple observation:
+This problem is not new.
 
-software changes faster than shared understanding.
+Software has always changed faster than shared understanding.
 
-That creates the same failures again and again:
+AI did not create that problem.
+It made it easier to see.
 
-- behavior drifts from intent
-- tests pass but the contract is unclear
-- docs lag behind code
-- new team members take too long to understand what matters
-- AI makes plausible changes without enough context
+Spec Led Development takes proven software engineering lessons and applies them to a world where humans and AI build software together.
 
-## Specs are not enough by themselves
+In this model, a spec is a repo-native contract layer.
 
-A spec helps, but only if the team keeps using it.
+It lives with the code, stays readable to humans, and stays structured enough for tools and agents to use.
 
-If nobody checks the spec after the first draft, drift comes back.
+## This idea runs deep
 
-That is why the core idea is a loop, not just a file.
+Spec Led Development is not based on one trend, one tool, or one framework.
 
-## The intent verification loop
+It draws from hard-won lessons about:
 
-The loop is:
+- complexity
+- intent
+- communication
+- verification
+- drift
+
+Two of the clearest reference points are Fred Brooks and Martin Fowler.
+
+## Fred Brooks: the hard part is still the hard part
+
+In [No Silver Bullet](https://www.seltzer.com/margo/teaching/CS508.19/background/NoSilverBullet.html), Fred Brooks argued that software has essential complexity.
+
+His point was simple:
+
+- there is no single tool that removes the hard part of software work
+- the hard part is deciding what to build, shaping the design, and testing whether it matches the idea
+- better tools help, but they do not remove the need for clarity
+
+That still holds.
+
+AI can write code faster.
+It can scaffold tests faster.
+It can explain code faster.
+
+But it does not remove the need to define intent clearly.
+
+If anything, it raises the cost of weak intent, because the system can now drift faster.
+
+## Martin Fowler: specifications must stay in use
+
+Martin Fowler's [Specification by Example](https://martinfowler.com/bliki/SpecificationByExample.html) makes a related point.
+
+Examples are easier for people to discuss than abstract rules alone.
+They help teams say the same thing in more than one way.
+
+That matters because software needs a double-check:
+
+- one expression of intent in the spec
+- another expression in code and tests
+
+Fowler also makes the deeper point that specifications are not enough by themselves.
+
+If a team writes a spec and then stops using it, communication has still failed.
+
+That is why Spec Led Development treats the spec as part of a loop, not as a document you write once and forget.
+
+There is also a second Fowler thread here.
+In [Specifications](https://martinfowler.com/apsupp/spec.pdf), Eric Evans and Martin Fowler describe a specification as a separate statement of what should match or be true.
+
+That separation matters.
+
+It keeps the statement of intent distinct from the code that tries to satisfy it.
+
+## Drift is a persistent software problem
+
+Drift is the gap between intent and reality.
+
+That gap appears when:
+
+- the code changes
+- the tests only check part of the behavior
+- the docs fall behind
+- the team no longer shares the same picture of what the system should do
+
+That problem existed long before AI.
+
+What changed is the speed.
+
+Agentic and AI tooling can produce real code quickly.
+That is useful.
+It is also dangerous when the system has no strong statement of intent and no verification loop around it.
+
+So the modern problem is not that software suddenly became hard.
+
+The same problem got sharper:
+
+- more code can be produced faster
+- more changes can land with weaker context
+- drift can spread before humans notice
+
+## A spec is not enough by itself
+
+The core idea is not the spec by itself.
+
+The core idea is an intent verification loop.
+
+Without that loop, a spec is only a document.
+
+With that loop, the spec becomes operational.
+
+It guides implementation, verifies outcomes, drives correction, and stays active in CI after the first merge.
+
+## What Spec Led Development does with these lessons
+
+Spec Led Development is an attempt to respond to that pressure in a simple way.
+
+It takes a few proven ideas seriously:
+
+- the hard part is still deciding what must be true
+- specifications are useful only if they stay connected to implementation
+- examples, tests, and specs work better together than alone
+- humans must stay responsible for intent
+
+From that, the public model becomes:
 
 1. a human has an idea
-2. a human writes or updates the spec
-3. a human and an AI build code, tests, and docs from that spec
-4. the project verifies the result
-5. a human reviews the result and adjusts the spec or the code
-6. CI runs the same checks to catch drift early
+2. a human and an LLM turn that idea into a spec
+3. humans and AI build code, tests, and docs from the spec
+4. the project verifies whether the implementation still matches the spec
+5. CI repeats the same check so drift does not stay hidden
 
-This is what makes specs operational.
+That is the intent verification loop.
 
-## Why humans stay in the loop
+## What the spec should contain
 
-AI can help with implementation and drift repair.
+The model stays intentionally small.
 
-AI should not be the final authority on what the system is for.
+A spec describes a few kinds of claims:
 
-Humans still decide intent, approve changes, and resolve ambiguity.
+- a subject
+- a requirement
+- a scenario
+- a verification target
+- an exception when a deviation is approved
 
-## Why CI matters
+That keeps the focus on what must stay true.
 
-The shared gate should live in CI.
+It does not try to turn the spec into a giant design document.
 
-That is where the team sees drift together.
+## What should be authored and what should be derived
 
-Some teams also run the same checks on `pre-commit`.
+The source spec should describe the ideal state.
 
-That can help catch issues earlier, but CI is the main guard.
+It should not carry live operational state.
 
-## Why this can stay simple
+That means findings, drift, coverage gaps, and verification results should be derived by tooling around the spec, not written into the source itself.
 
-The starter version does not need heavy governance.
+This matters because the authored contract should stay stable while the tool state keeps changing.
 
-It can start with:
+## Why humans still lead
 
-- one spec file
-- one check command
-- one CI check
+AI should work inside the loop as an operator, not outside it as an oracle.
 
-Larger systems can add more structure later.
+It can help draft specs, write code, update tests, and repair drift.
 
-## The practical result
+But humans still decide what the system is for, approve the target state, and resolve ambiguity.
 
-Specs help because they stay inside a loop that keeps intent, code, tests, docs, and CI tied together.
+## Why this matters now
+
+Spec Led Development is not trying to revive heavyweight requirements documents.
+
+It is trying to make intent:
+
+- small
+- local to the repo
+- readable by humans
+- usable by AI
+- checked by tooling
+
+The goal is not more paperwork.
+
+The goal is to keep the team's intent close to the code in a world where code can change very quickly.
+
+## Read more
+
+- [Fred Brooks, No Silver Bullet](https://www.seltzer.com/margo/teaching/CS508.19/background/NoSilverBullet.html)
+- [Martin Fowler, Specification by Example](https://martinfowler.com/bliki/SpecificationByExample.html)
+- [Eric Evans and Martin Fowler, Specifications](https://martinfowler.com/apsupp/spec.pdf)

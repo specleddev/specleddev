@@ -22,32 +22,11 @@
   "navigation": {
     "pages": [
       "home",
-      "getting-started",
-      "what-is-spec-led",
       "theory",
       "specification",
-      "progressive-disclosure",
-      "beta-plan",
       {
         "group": "Use Cases",
-        "pages": [
-          "use-cases/new-project",
-          "use-cases/brownfield",
-          "use-cases/new-feature",
-          "use-cases/bug-fix"
-        ]
-      },
-      {
-        "group": "Examples",
-        "pages": [
-          "examples/jido-action"
-        ]
-      },
-      {
-        "group": "For tool builders",
-        "pages": [
-          "implementation/adding-specled-support"
-        ]
+        "pages": ["use-cases/greenfield"]
       }
     ]
   },
@@ -69,8 +48,8 @@
       "destination": "/home"
     },
     {
-      "source": "/background-theory",
-      "destination": "/theory"
+      "source": "/getting-started",
+      "destination": "/use-cases/greenfield"
     }
   ]
 }

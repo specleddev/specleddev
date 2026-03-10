@@ -19,7 +19,7 @@ You fix the bug and encode the expected behavior in spec, tests, and docs.
 2. Add or update the related spec requirement and scenario.
 3. Ask Codex to implement the minimum code change to satisfy the spec.
 4. Keep the regression test and update docs if behavior is user-facing.
-5. Run spec check and tests before merge.
+5. Run `npx specled verify`, `npx specled check`, and tests before merge.
 
 ## Codex example prompt
 
@@ -27,7 +27,7 @@ You fix the bug and encode the expected behavior in spec, tests, and docs.
 Fix this bug with the smallest safe change.
 Update the relevant spec requirement and scenario first.
 Add or update a regression test that fails before and passes after.
-Run spec check and tests, then summarize drift findings.
+Run npx specled verify and tests, then summarize drift findings.
 ```
 
 ## Any coding agent prompt
@@ -35,12 +35,12 @@ Run spec check and tests, then summarize drift findings.
 ```text
 Use the spec as the contract for the bug fix.
 Update spec + code + regression test + docs together.
-Run spec check and report any missing coverage.
+Run npx specled verify and report any missing coverage.
 ```
 
 ## Verify
 
 - Confirm the regression test fails before the fix and passes after.
 - Confirm the updated requirement is covered in verification.
-- Confirm spec check passes.
+- Confirm npx specled check passes.
 - Confirm no unrelated behavior changed.

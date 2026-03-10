@@ -7,7 +7,7 @@ Software changes faster than shared understanding among the people building it.
 
 **That is the core problem.**
 
-Spec Led Development helps teams document intent, build with it, and verify it as the code changes.
+Spec Led Development helps teams document intent, build, and verify it as the code changes.
 
 ## The problem
 
@@ -18,35 +18,38 @@ When shared understanding slips, teams get:
 - AI changes with weak context
 - behavior that drifts over time
 
-## The loop
+The rapid pace of development with LLMs has surfaced this problem in a new way.
 
-Keep one small loop alive:
+## The solution
 
-1. Write one spec for one important thing.
-2. Build code, tests, and docs from that spec.
-3. Run one check locally and again in CI.
+Spec Led Development follows a loop
+
+1. Write your spec
+2. Build code, tests, and docs from that spec with AI
+3. Check your code against the spec on local and with CI
 
 Humans stay in the loop. Specs keep the intent close to the code.
+
+## Drift
+
+> Drift is the gap between intent and reality.
+>
+> It happens when code changes but the spec, tests, and docs do not.
+>
+> The longer it stays hidden, the harder it is to fix.
+
+Spec Led Development reduces drift by keeping the spec, code, tests, and CI in one loop.
 
 ## Start here
 
 <CardGroup cols={3}>
-  <Card title="Get started" icon="rocket" href="/getting-started">
-    See the simplest starter flow.
-  </Card>
-  <Card title="What is Spec Led?" icon="lightbulb" href="/what-is-spec-led">
-    Read the plain-language version.
+  <Card title="Greenfield Project" icon="leaf" href="/use-cases/greenfield">
+    Start a new project with one spec and one verification loop.
   </Card>
   <Card title="Theory" icon="brain" href="/theory">
     Learn why specs need a verification loop.
   </Card>
   <Card title="Specification" icon="file-code" href="/specification">
-    See the core file shape.
-  </Card>
-  <Card title="How it grows" icon="layers" href="/progressive-disclosure">
-    See how teams add structure later.
-  </Card>
-  <Card title="Beta plan" icon="flag" href="/beta-plan">
-    See what we are planning to ship first.
+    Read the portable core model for tools and repos.
   </Card>
 </CardGroup>

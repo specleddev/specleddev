@@ -1,0 +1,371 @@
+---
+title: "Greenfield"
+description: "Start a new project with one spec, one loop, and one CI check."
+---
+
+Use this when you are starting from zero and want clear intent from day one.
+
+## What you are building
+
+We will use one small feature:
+
+`GET /api/greeting`
+
+It should:
+
+- return `200` and a greeting when `name` is present
+- return `400` when `name` is missing
+
+## Start a new project
+
+Create a small Express app.
+
+```bash
+mkdir greeting-api
+cd greeting-api
+npm init -y
+npm pkg set type="module"
+npm pkg set scripts.dev="tsx src/server.ts"
+npm pkg set scripts.test="vitest run"
+npm install express
+npm install -D typescript tsx vitest supertest @types/node @types/express @types/supertest
+mkdir -p src
+```
+
+## Install Spec Led
+
+Add the spec workspace to the repo.
+
+```bash
+npx specled init
+```
+
+Example output:
+
+```text
+$ npx specled init
+
+Spec Led Init
+
+Create .spec workspace? Yes
+Install Spec Led Dev Authoring Skill too? [Y/n] y
+
+Created .spec/README.md
+Created .spec/specs/spec_system.spec.md
+Created .spec/specs/package.spec.md
+Initialized .spec/state.json
+Installed Spec Led Dev Authoring Skill
+
+Next:
+- author .spec/specs/greeting-endpoint.spec.md
+- run npx specled verify
+```
+
+The workspace should now look like this:
+
+```text
+.spec/
+  README.md
+  state.json
+  specs/
+    spec_system.spec.md
+    package.spec.md
+```
+
+`state.json` is the generated state file for the spec workspace.
+
+It combines the current spec index and the latest verification findings.
+
+## Author your first spec with the skill
+
+In practice, most teams will draft this with an LLM.
+
+Use the `Spec Led Dev Authoring Skill` to brainstorm the feature and draft the first spec. Then edit the result until the intent is right.
+
+Example prompt:
+
+```text
+Use the Spec Led Dev Authoring Skill to draft a spec for GET /api/greeting in an Express app.
+It should return status 200 and a greeting when the request includes a name query value.
+It should return status 400 when the name query value is missing.
+Keep it small: 2 requirements, 2 scenarios, 1 verification target.
+```
+
+## Author the first spec
+
+Create one subject spec:
+
+```text
+.spec/specs/greeting-endpoint.spec.md
+```
+
+Start small.
+
+Do not model the whole app.
+Do not add extra behavior beyond the spec.
+
+The file is still normal markdown.
+
+The prose explains the feature for humans.
+The structured blocks give the verification loop something precise to check.
+
+Example:
+
+````md
+# Greeting Endpoint
+
+This endpoint returns a short greeting.
+
+It is small on purpose. The goal is to show how one feature can start with one clear contract.
+
+## Intent
+
+Expose `GET /api/greeting`.
+
+If the request includes a `name` query value, return a greeting.
+If the request does not include `name`, return a clear error.
+
+```spec-meta
+id: api.greeting
+kind: endpoint
+status: active
+surface:
+  - GET /api/greeting
+```
+
+## Requirements
+
+These are the rules this endpoint must keep true.
+
+```spec-requirements
+- id: greeting.name_provided
+  statement: When the request includes a non-empty name query value, the endpoint returns status 200 and a greeting string.
+- id: greeting.name_missing
+  statement: When the request does not include a name query value, the endpoint returns status 400 and an error message.
+```
+
+## Scenarios
+
+These scenarios make the rules concrete.
+
+```spec-scenarios
+- id: greeting.success
+  given:
+    - the server is running
+  when:
+    - a client calls GET /api/greeting?name=Ada
+  then:
+    - the response status is 200
+    - the response body includes "Hello, Ada"
+  covers:
+    - greeting.name_provided
+- id: greeting.missing_name
+  given:
+    - the server is running
+  when:
+    - a client calls GET /api/greeting without a name query value
+  then:
+    - the response status is 400
+    - the response body includes an error message
+  covers:
+    - greeting.name_missing
+```
+
+## Verification
+
+This tells the loop where to look for evidence.
+
+```spec-verification
+- kind: test
+  target: src/app.test.ts
+  covers:
+    - greeting.name_provided
+    - greeting.name_missing
+```
+````
+
+## Build the feature
+
+Build the code from the spec.
+
+`src/app.ts`
+
+```ts
+import express from "express";
+
+export function createApp() {
+  const app = express();
+
+  app.get("/api/greeting", (req, res) => {
+    const name = req.query.name;
+
+    if (typeof name !== "string" || name.trim() === "") {
+      return res.status(400).json({ error: "name is required" });
+    }
+
+    return res.status(200).json({ greeting: `Hello, ${name}` });
+  });
+
+  return app;
+}
+```
+
+`src/server.ts`
+
+```ts
+import { createApp } from "./app";
+
+const port = Number(process.env.PORT ?? 3000);
+
+createApp().listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
+});
+```
+
+`src/app.test.ts`
+
+```ts
+import request from "supertest";
+import { describe, expect, it } from "vitest";
+import { createApp } from "./app";
+
+describe("GET /api/greeting", () => {
+  const app = createApp();
+
+  it("returns a greeting when name is present", async () => {
+    const response = await request(app)
+      .get("/api/greeting")
+      .query({ name: "Ada" });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ greeting: "Hello, Ada" });
+  });
+
+  it("returns 400 when name is missing", async () => {
+    const response = await request(app).get("/api/greeting");
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: "name is required" });
+  });
+});
+```
+
+## Run `verify`
+
+Use `verify` as the normal local loop command.
+
+```bash
+npx specled verify
+```
+
+Passing output:
+
+```text
+$ npx specled verify
+
+Spec Led Verify
+
+Specs scanned: 3
+Subjects: 1
+Requirements: 2
+Scenarios: 2
+Verification targets: 1
+
+OK    .spec/specs/greeting-endpoint.spec.md
+OK    src/app.test.ts covers 2 requirements
+
+Updated .spec/state.json
+
+Result: 0 findings
+```
+
+`verify` updates `.spec/state.json` with the current spec index and findings.
+
+That file gives the tool one place to track current spec state.
+
+## Show drift on purpose
+
+Now imagine the test no longer checks the missing-name case.
+
+Run `verify` again:
+
+```bash
+npx specled verify
+```
+
+Example drift output:
+
+```text
+$ npx specled verify
+
+Spec Led Verify
+
+WARN  requirement greeting.name_missing has no matching verification
+WARN  src/app.test.ts does not assert status 400
+
+Updated .spec/state.json
+
+Result: 2 findings
+```
+
+## Run `check`
+
+`check` is the gate.
+
+If there is drift:
+
+```text
+$ npx specled check
+
+Spec Led Check
+
+FAIL 2 findings
+See .spec/state.json
+```
+
+If the repo is aligned:
+
+```text
+$ npx specled check
+
+Spec Led Check
+
+PASS 0 findings
+```
+
+It is the same loop, just enforced strictly.
+
+## Add CI
+
+Use the same command in CI.
+
+```yaml
+name: spec-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  spec-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx specled check
+```
+
+## What to skip
+
+Do not start with:
+
+- heavy traceability
+- proposal records
+- ADR workflows
+- conformance matrices
+- pre-commit hooks
+
+Those can come later.
