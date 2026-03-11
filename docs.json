@@ -27,7 +27,6 @@
       "core-model",
       "tooling",
       "getting-started",
-      "specification",
       {
         "group": "Use Cases",
         "pages": [
@@ -64,6 +63,10 @@
     {
       "source": "/what-is-spec-led",
       "destination": "/how-it-works"
+    },
+    {
+      "source": "/specification",
+      "destination": "/core-model"
     }
   ]
 }
