@@ -22,12 +22,22 @@
   "navigation": {
     "pages": [
       "home",
-      "theory",
+      "why",
+      "how-it-works",
+      "core-model",
+      "tooling",
+      "getting-started",
       "specification",
       {
         "group": "Use Cases",
-        "pages": ["use-cases/greenfield"]
-      }
+        "pages": [
+          "use-cases/greenfield",
+          "use-cases/brownfield",
+          "use-cases/bug-fix",
+          "use-cases/new-feature"
+        ]
+      },
+      "faq"
     ]
   },
   "contextual": {
@@ -48,8 +58,12 @@
       "destination": "/home"
     },
     {
-      "source": "/getting-started",
-      "destination": "/use-cases/greenfield"
+      "source": "/theory",
+      "destination": "/why"
+    },
+    {
+      "source": "/what-is-spec-led",
+      "destination": "/how-it-works"
     }
   ]
 }

@@ -5,42 +5,46 @@ description: "Fix a bug and lock the behavior with spec coverage to prevent regr
 
 Use this when production behavior is wrong and you need a safe, repeatable fix.
 
-## Problem
+## Goal
 
-A bug gets patched, but the real contract is still unclear, so the same bug comes back later.
+Fix the bug and make the intended behavior explicit enough that the same regression is harder to reintroduce.
 
-## Outcome
+## Recommended loop
 
-You fix the bug and encode the expected behavior in spec, tests, and docs.
+1. Reproduce the bug with a failing test or another clear failing check.
+2. Update the relevant requirement or scenario before the code change.
+3. Implement the smallest safe fix.
+4. Keep the regression test.
+5. Update docs if the behavior is user-facing.
+6. Run the local verification and strict check commands before merge.
 
-## High-level walkthrough
+## Why this works
 
-1. Reproduce the bug with a failing test or clear failing command.
-2. Add or update the related spec requirement and scenario.
-3. Ask Codex to implement the minimum code change to satisfy the spec.
-4. Keep the regression test and update docs if behavior is user-facing.
-5. Run `npx specled verify`, `npx specled check`, and tests before merge.
+A bug fix is one of the best times to use Spec Led Development because the intended effect is usually very clear:
 
-## Codex example prompt
+- this behavior was wrong
+- this behavior should now stay true
+- this test or command proves it
 
-```text
-Fix this bug with the smallest safe change.
-Update the relevant spec requirement and scenario first.
-Add or update a regression test that fails before and passes after.
-Run npx specled verify and tests, then summarize drift findings.
-```
+That makes the spec update small and useful.
 
-## Any coding agent prompt
+## What to keep small
 
-```text
-Use the spec as the contract for the bug fix.
-Update spec + code + regression test + docs together.
-Run npx specled verify and report any missing coverage.
-```
+- one requirement or one scenario update
+- one regression path
+- one bounded code change
 
-## Verify
+## Avoid
 
-- Confirm the regression test fails before the fix and passes after.
-- Confirm the updated requirement is covered in verification.
-- Confirm npx specled check passes.
-- Confirm no unrelated behavior changed.
+- bundling cleanup and refactors into the same change
+- fixing adjacent issues without updating the spec boundary
+- merging a bug fix that only changes code but not the stated contract
+
+## Good outcome
+
+The bug-fix loop is complete when:
+
+- the failing behavior is now described clearly
+- the regression is covered by a test or command
+- the verification loop passes
+- the team can point to one place in the repo that states the intended effect

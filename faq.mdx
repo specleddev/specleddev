@@ -1,0 +1,71 @@
+---
+title: "FAQ"
+description: "Common questions and non-goals for Spec Led Development."
+---
+
+## Is this a replacement for tests?
+
+No.
+
+Tests are still one of the main ways to prove behavior.
+
+Spec Led Development gives the repo a current-truth contract and a verification loop around that contract.
+
+## Is this a code generator?
+
+No.
+
+Agents can use the spec as an implementation target, but the method is not a code generation product.
+
+## Is this a heavyweight requirements process?
+
+No.
+
+The goal is the opposite:
+
+- keep the authored model small
+- keep it close to the repo
+- keep it easy to maintain
+
+## Is this only for AI workflows?
+
+No.
+
+The method is useful without agents.
+
+AI just makes the old drift problem show up faster and more often.
+
+## Does every file need a spec?
+
+No.
+
+Start with the parts of the system where shared understanding matters most.
+
+The goal is meaningful subject coverage, not a mechanical file inventory.
+
+## Do I need ADRs on day one?
+
+No.
+
+Start with current-truth subject specs.
+
+Add ADRs when you have a cross-cutting decision that should stay consistent over time.
+
+## Is this only for greenfield projects?
+
+No.
+
+It works well for brownfield adoption because you can start from current behavior and tighten the loop one subject at a time.
+
+## Is this tied to one language?
+
+No.
+
+The method is language-agnostic.
+The tooling is implementation-specific.
+
+## What is the real goal?
+
+The goal is not more documentation.
+
+The goal is to keep intent, implementation, and verification aligned as the code changes.

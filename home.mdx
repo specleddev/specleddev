@@ -1,55 +1,72 @@
 ---
 title: "Overview"
-description: "People build software. Not LLMs."
+description: "Keep intent, implementation, and verification in one loop."
 ---
 
-Software changes faster than shared understanding among the people building it.
+Spec Led Development is a small way to keep shared intent close to the code.
 
-**That is the core problem.**
-
-Spec Led Development helps teams document intent, build, and verify it as the code changes.
+It gives a repo one current-truth spec layer, a verification loop, and a clear place for humans and agents to meet.
 
 ## The problem
 
-When shared understanding slips, teams get:
+Software changes faster than shared understanding.
 
-- code that passes tests but still misses the point
+That gap shows up as drift:
+
+- code that technically passes but misses the point
+- tests that only cover part of the behavior
 - docs that go stale
-- AI changes with weak context
-- behavior that drifts over time
+- agent output with weak context
 
-The rapid pace of development with LLMs has surfaced this problem in a new way.
+## The answer
 
-## The solution
+Spec Led Development keeps four things tied together:
 
-Spec Led Development follows a loop
+1. intent
+2. code
+3. tests and docs
+4. verification
 
-1. Write your spec
-2. Build code, tests, and docs from that spec with AI
-3. Check your code against the spec on local and with CI
+The spec is not the whole system.
+It is the small contract layer that keeps those pieces aligned.
 
-Humans stay in the loop. Specs keep the intent close to the code.
+## The loop
 
-## Drift
+1. Write current truth in the repo.
+2. Build code, tests, and docs against it.
+3. Verify that the effects match the spec.
+4. Keep the same check in CI so drift does not stay hidden.
 
-> Drift is the gap between intent and reality.
->
-> It happens when code changes but the spec, tests, and docs do not.
->
-> The longer it stays hidden, the harder it is to fix.
+## What stays in the repo
 
-Spec Led Development reduces drift by keeping the spec, code, tests, and CI in one loop.
+At the core, the repo keeps:
 
-## Start here
+- authored spec files in `.spec/specs/*.spec.md`
+- derived verification state in `.spec/state.json`
 
-<CardGroup cols={3}>
-  <Card title="Greenfield Project" icon="leaf" href="/use-cases/greenfield">
-    Start a new project with one spec and one verification loop.
+Some implementations also scaffold local workspace guides and ADRs.
+The public model stays intentionally small.
+
+## Who it is for
+
+- teams using AI coding agents
+- teams that want clearer engineering back pressure
+- projects that need a language-agnostic method
+- engineers who want something simple enough to teach and strong enough to verify
+
+## Start Here
+
+<CardGroup cols={2}>
+  <Card title="Why" icon="compass" href="/why">
+    Read the practical reason this method exists and the constraints that shaped it.
   </Card>
-  <Card title="Theory" icon="brain" href="/theory">
-    Learn why specs need a verification loop.
+  <Card title="How It Works" icon="rotate" href="/how-it-works">
+    See the loop from current truth to code to verification.
+  </Card>
+  <Card title="Getting Started" icon="flag" href="/getting-started">
+    Choose the smallest good path for a new repo, brownfield repo, bug fix, or new feature.
   </Card>
   <Card title="Specification" icon="file-code" href="/specification">
-    Read the portable core model for tools and repos.
+    Read the formal portable core and workspace rules.
   </Card>
 </CardGroup>

@@ -5,42 +5,49 @@ description: "Ship a feature with a clear spec-first workflow for humans and cod
 
 Use this when adding net-new behavior to an existing project.
 
-## Problem
+## Goal
 
-Feature work often lands with partial tests, stale docs, or AI-generated edge cases nobody asked for.
+Define the feature boundary clearly enough that implementation stays inside it.
 
-## Outcome
+## Recommended loop
 
-You ship the feature with intent, tests, and docs aligned in one loop.
+1. Write or update the subject spec before coding.
+2. Define the feature in requirements, not just prose.
+3. Add scenarios for the important cases and boundaries.
+4. Point verification at the tests or commands that should prove it.
+5. Implement only what the spec calls for.
+6. Update docs in the same change when the feature is user-facing.
+7. Run the local verification and strict check commands before merge.
 
-## High-level walkthrough
+## Why this matters
 
-1. Add or update the spec for the new feature before coding.
-2. Define requirements, scenarios, and verification targets.
-3. Ask Codex to implement only what the spec defines.
-4. Ask Codex to update tests and docs in the same change.
-5. Run `npx specled verify`, then `npx specled check`, and fix drift before merge.
+New feature work is where scope drift often starts.
 
-## Codex example prompt
+That gets worse when agents can generate extra behavior quickly.
 
-```text
-Implement this feature strictly from the .spec/specs/ folder.
-Update tests and docs to match the new requirements and scenarios.
-Run npx specled verify and resolve all warnings.
-Show what changed in spec, code, tests, and docs.
-```
+The spec gives the team a simple question to ask:
 
-## Any coding agent prompt
+Does this change implement the intended effect, or is it inventing more than we asked for?
 
-```text
-Use the spec as the implementation contract for this feature.
-Apply the code change, then align tests and docs.
-Run npx specled verify and return unresolved drift findings.
-```
+## What to keep explicit
 
-## Verify
+- what the feature is
+- what the feature is not
+- what counts as done
+- what evidence should prove it
 
-- Confirm new requirements are covered by tests or commands.
-- Confirm docs mention the new behavior.
-- Confirm npx specled check passes.
-- Confirm no extra behavior was added outside the spec.
+## Avoid
+
+- vague requirements like "support the new workflow"
+- mixing feature delivery with unrelated cleanup
+- adding extra behavior just because the implementation made it easy
+- leaving docs and verification behind the code
+
+## Good outcome
+
+The feature pass is strong when:
+
+- the new behavior is explicit in the spec
+- the tests and docs line up with that behavior
+- the verification loop passes
+- reviewers can see the intended boundary without reconstructing it from code alone

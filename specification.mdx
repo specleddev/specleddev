@@ -42,6 +42,17 @@ This specification does not define:
 - organization-specific governance overlays
 - proposal, ADR, or control-plane systems beyond the portable core
 
+Implementations MAY add non-core workspace files around this portable core.
+
+Examples include:
+
+- local workspace guides
+- agent operating notes
+- ADR directories for cross-cutting decisions
+
+Those additions are extensions.
+They are not part of the normative portable core unless this document says otherwise.
+
 ## 2. Normative language
 
 The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `SHOULD NOT`, `MAY`, and `OPTIONAL` in this document are to be interpreted as normative requirement terms.
@@ -147,6 +158,15 @@ The canonical workspace layout is:
     package.spec.md
     *.spec.md
 ```
+
+Implementations MAY add non-core files or directories alongside that layout.
+
+Examples include:
+
+- `.spec/AGENTS.md`
+- `.spec/decisions/`
+
+Those additions MUST NOT change the meaning of the core authored model defined here.
 
 The file roles are:
 

@@ -1,0 +1,77 @@
+---
+title: "Tooling"
+description: "Portable method, implementation-specific tools."
+---
+
+Spec Led Development is language-agnostic.
+
+The tooling is not.
+
+That is an important distinction.
+
+The method should stay portable across languages.
+The commands and package names will vary by stack.
+
+## The method comes first
+
+The core ideas do not depend on one runtime:
+
+- current truth in the repo
+- a small authored model
+- derived verification state
+- a repeatable drift check
+
+What changes is the implementation that reads the workspace and runs the checks.
+
+## Elixir package
+
+[`specled_ex`](https://github.com/specleddev/specled_ex) is the current most complete beta implementation.
+
+It provides Mix tasks for:
+
+- initializing a workspace
+- verifying authored specs
+- running a strict conformance check
+- reporting coverage and verification strength
+- checking diff-aware co-changes
+- scaffolding ADRs for cross-cutting decisions
+
+This is the implementation the beta release is centered on today.
+
+## TypeScript package
+
+[`specled`](https://github.com/specleddev/specled) is the JavaScript and TypeScript implementation track.
+
+The goal is the same portable workspace and verification model for JS and TS repos.
+
+It is earlier in maturity than the Elixir package.
+
+That means the method is already language-agnostic, while the tooling maturity is still catching up across implementations.
+
+## CI support
+
+The project also includes shared GitHub Actions support so repositories can run the same verification loop in CI that they run locally.
+
+That matters because Spec Led Development is not just a local authoring habit.
+
+It is supposed to create lasting back pressure when code changes without the matching intent and verification changes.
+
+## If your stack is not fully supported yet
+
+You can still adopt the method.
+
+The portable core is small enough that a repo can start with:
+
+- `.spec/specs/*.spec.md`
+- `.spec/state.json`
+- one local verification command
+
+Then the implementation-specific tooling can catch up around that contract.
+
+## Choosing a path
+
+If you are evaluating the project today:
+
+- use the Elixir package if you want the most complete beta workflow
+- treat the TypeScript package as the matching implementation direction
+- keep the site-level method docs language-agnostic so the model stays portable

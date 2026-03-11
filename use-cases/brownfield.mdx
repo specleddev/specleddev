@@ -5,41 +5,52 @@ description: "Adopt Spec Led in an existing codebase without stopping delivery."
 
 Use this when a project already has code, tests, and docs, but intent is unclear.
 
-## Problem
+## Goal
 
-Legacy projects have behavior spread across code, tests, docs, and team memory. AI changes are risky because there is no clear contract.
+Establish current truth for one critical part of the system without trying to rewrite the whole repo.
 
-## Outcome
+## Start with current behavior
 
-You get a baseline spec that reflects current behavior, then tighten it over time.
+In a brownfield repo, the first spec should describe what the system actually does now.
+
+Do not start with the ideal future design.
+
+That creates confusion fast, especially when the code, tests, and docs already disagree.
 
 ## High-level walkthrough
 
 1. Pick one critical area first, not the whole repo.
-2. Write a spec that describes current behavior and known constraints.
-3. Link that spec to existing tests and docs in verification.
-4. Run `npx specled verify` to surface missing coverage and weak spots.
-5. Fix one drift item at a time and keep iterating.
+2. Read the current code, tests, and docs together.
+3. Write a subject spec that matches shipped behavior and known constraints.
+4. Point verification at the evidence that already exists.
+5. Run the local verification command to surface missing coverage and weak spots.
+6. Tighten one gap at a time.
 
-## Codex example prompt
+## What a good first slice looks like
 
-```text
-Start with module X only.
-Read current code, tests, and docs, then write a spec that matches real behavior.
-Do not change runtime behavior yet unless needed for correctness.
-Run npx specled verify and list missing coverage.
-```
+- one module with unclear behavior
+- one workflow that crosses several files
+- one package surface that agents tend to change
+- one area where docs and tests already drift
 
-## Any coding agent prompt
+## What to verify first
 
-```text
-Create a baseline spec for the selected module from existing behavior.
-Map spec claims to current tests and docs.
-Run npx specled verify and report what is not covered yet.
-```
+- every requirement should have at least one verification path
+- every important scenario should map to current evidence
+- current docs should not contradict the new current-truth spec
 
-## Verify
+## Avoid
 
-- Confirm the spec matches current shipped behavior.
-- Confirm each key requirement has at least one verification reference.
-- Track unresolved gaps as explicit follow-up work.
+- trying to specify the whole repo in one pass
+- writing aspirational behavior that has not shipped
+- changing runtime behavior before the baseline is clear
+- treating every uncovered file as equally important
+
+## Good outcome
+
+You know the brownfield adoption is working when:
+
+- the first subject matches real behavior
+- the repo can prove at least some of that behavior
+- the next gaps are visible instead of hidden
+- the team can deepen the coverage gradually without stopping delivery

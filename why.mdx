@@ -1,0 +1,102 @@
+---
+title: "Why"
+description: "Why Spec Led Development exists and the constraints that shaped it."
+---
+
+I built Spec Led Development because I needed one consistent way to check whether a team was actually delivering the intended effects of a change.
+
+That need got sharper once agents entered the workflow.
+
+I did not need a bigger planning system.
+I needed a small, teachable, language-agnostic way to keep intent, code, tests, and verification aligned.
+
+## The practical problem
+
+Teams rarely fail because they cannot write code.
+
+They fail because shared understanding slips as the system changes.
+
+That gap shows up in familiar ways:
+
+- tests pass, but the behavior still misses the point
+- docs lag behind the code
+- one engineer means one thing and another hears something else
+- agents move quickly, but with weak context
+
+I wanted a better way to create engineering back pressure when that happened.
+
+## The constraints that mattered
+
+I wanted something that could work across TypeScript and Elixir.
+
+That ruled out a method that only made sense inside one language, framework, or toolchain.
+
+I also wanted something simple enough to teach to junior engineers.
+
+If the method only works for the most senior people on the team, it does not scale.
+
+At the same time, it needed to be strong enough to guide agents.
+
+That meant the format had to be readable by humans, structured enough for tools, and small enough to stay maintained in a real repo.
+
+## Why simple mattered
+
+There is a long history of specifications becoming too large, too abstract, or too disconnected from daily work.
+
+I did not want to rebuild that.
+
+I wanted something that:
+
+- stayed close to the code
+- stayed current-state and declarative
+- did not turn into a second project tracker
+- could be adopted incrementally
+
+So the model stayed small on purpose.
+
+## Why proof mattered
+
+I did not only want a way to describe intent.
+
+I wanted a way to prove that the intended effects were being followed by the code.
+
+That is the difference between a nice document and an operational method.
+
+Without verification, a spec is just another artifact that can go stale.
+
+With verification, it becomes part of the working loop:
+
+- author intent
+- build against it
+- check whether the implementation still matches it
+
+## What the history made clear
+
+This project is not built from scratch.
+
+It carries forward proven software engineering lessons.
+
+Fred Brooks made the essential point in [No Silver Bullet](https://www.seltzer.com/margo/teaching/CS508.19/background/NoSilverBullet.html): the hard part is still deciding what must be true.
+
+Tools can help.
+They do not remove the need for clarity.
+
+Martin Fowler made a related point in [Specification by Example](https://martinfowler.com/bliki/SpecificationByExample.html): specifications help when they stay in use.
+
+That matters here.
+
+The goal is not to write more documents.
+The goal is to keep intent connected to implementation and verification.
+
+## What Spec Led Development became
+
+The result is a method that tries to be:
+
+- simple enough to teach
+- portable across languages
+- practical for human and agent collaboration
+- strong enough to prove whether intended effects are actually being followed
+
+At the core, it is a small contract layer in the repo plus a verification loop around it.
+
+That is the whole point.

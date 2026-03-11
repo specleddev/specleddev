@@ -1,0 +1,92 @@
+---
+title: "Core Model"
+description: "The small portable model at the center of Spec Led Development."
+---
+
+The core model is intentionally small.
+
+It tries to answer one question:
+
+What is the smallest specification model that is still useful for humans, agents, and verification tooling?
+
+The answer is five claim types.
+
+## The five claims
+
+| Claim | Job | Question it answers |
+| --- | --- | --- |
+| `subject` | defines what is being specified | what part of the system is this spec about? |
+| `requirement` | states what must stay true | what is required behavior? |
+| `scenario` | makes a requirement concrete | what does that requirement look like in practice? |
+| `verification` | points at evidence | how do we prove this claim is being followed? |
+| `exception` | records an approved deviation | where is a deliberate gap or temporary deviation allowed? |
+
+## Why only five?
+
+Because the model needs to stay portable.
+
+If the core grows too large, it gets harder to:
+
+- teach
+- maintain
+- port across languages
+- keep aligned with real repos
+
+So the core does not try to model every planning or governance need.
+
+It focuses on current truth and proof.
+
+## How the pieces connect
+
+A typical subject spec works like this:
+
+1. `spec-meta` defines the subject
+2. `spec-requirements` state what must stay true
+3. `spec-scenarios` illustrate important cases
+4. `spec-verification` points at the evidence
+5. `spec-exceptions` records approved deviations when needed
+
+That gives one clear chain:
+
+- what this part of the system is
+- what matters about it
+- what the important cases look like
+- where the proof lives
+
+## What the model does not try to do
+
+The portable core does not try to be:
+
+- a project management system
+- a design document template
+- a control plane for every engineering decision
+- a replacement for tests
+
+Those things may matter in a real repo.
+
+They just should not bloat the portable core.
+
+## Practical extensions
+
+Real implementations may add a little more around the core.
+
+For example:
+
+- local workspace guides
+- agent operating notes
+- ADRs for cross-cutting decisions
+
+Those extensions can be useful.
+
+They should stay outside the smallest portable model.
+
+## The design point
+
+The core model is supposed to be:
+
+- small enough to teach to junior engineers
+- structured enough for tools
+- simple enough to port across languages
+- strong enough to create real verification pressure
+
+That tradeoff is deliberate.

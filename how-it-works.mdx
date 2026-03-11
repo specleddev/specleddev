@@ -1,0 +1,135 @@
+---
+title: "How It Works"
+description: "The operational loop behind Spec Led Development."
+---
+
+Spec Led Development is not just "write a spec."
+
+It is a working loop:
+
+1. write current truth
+2. build code, tests, and docs against it
+3. verify that the effects still match the spec
+4. keep the same check in CI
+
+Without that loop, the spec is just another document.
+
+## 1. Write current truth
+
+Start with the smallest subject that matters.
+
+That might be:
+
+- one endpoint
+- one module
+- one workflow
+- one package-level contract
+
+Author current truth in `.spec/specs/*.spec.md`.
+
+The portable core keeps five claim types:
+
+- subject
+- requirement
+- scenario
+- verification
+- exception
+
+The authored layer says what must stay true.
+
+## 2. Build against it
+
+Once the spec is clear enough, implement code, tests, and docs against it.
+
+Humans and agents can both work in this step.
+
+The spec gives both of them the same target.
+
+That is important.
+
+The value is not that an agent can read a spec.
+The value is that humans and agents now have one shared contract to work from.
+
+## 3. Verify the result
+
+Verification turns the spec into something operational.
+
+The repo checks whether the implementation still matches the authored claims.
+
+That check can point at:
+
+- source files
+- tests
+- guides
+- commands
+
+The exact command depends on the implementation for your stack.
+
+## 4. Keep the loop live
+
+The same check should run locally and in CI.
+
+That is how the repo creates back pressure when code changes but intent, tests, or docs do not move with it.
+
+This is how drift gets caught early instead of staying hidden.
+
+## Current truth versus derived state
+
+Spec Led Development keeps authored and derived information separate.
+
+Authored current truth:
+
+- `.spec/specs/*.spec.md`
+
+Derived state:
+
+- `.spec/state.json`
+
+The authored files describe the intended state.
+The derived state records what the tooling found on the last run.
+
+That separation matters.
+
+It keeps the source contract stable while findings and coverage details change over time.
+
+## The practical workspace
+
+The portable core is intentionally small.
+
+At minimum, a workspace centers on:
+
+```text
+.spec/
+  specs/
+    *.spec.md
+  state.json
+```
+
+Some implementations also scaffold:
+
+- `.spec/README.md`
+- `.spec/AGENTS.md`
+- `.spec/decisions/*.md`
+
+Those extras help real teams, but the core model stays small.
+
+## Where humans and agents fit
+
+Humans still lead.
+
+Humans decide:
+
+- what the system is for
+- what must stay true
+- where ambiguity needs to be resolved
+
+Agents can help:
+
+- draft specs
+- implement code
+- update tests
+- repair drift
+
+But they should work inside the loop, not outside it.
+
+That is the operating model.

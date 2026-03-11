@@ -1,262 +1,65 @@
 ---
 title: "Greenfield"
-description: "Start a new project with one spec, one loop, and one CI check."
+description: "Start a new project with one small subject and one working verification loop."
 ---
 
-Use this when you are starting from zero and want clear intent from day one.
+Use this when you are starting from zero and want clear intent from day one without turning the repo into a planning exercise.
 
-## What you are building
+## Goal
 
-We will use one small feature:
+Get one working loop in place early:
 
-`GET /api/greeting`
+- one current-truth subject
+- one set of requirements
+- one real verification path
+- one CI check that keeps drift visible
 
-It should:
+## Smallest good starting point
 
-- return `200` and a greeting when `name` is present
-- return `400` when `name` is missing
+Pick one user-visible behavior.
 
-## Start a new project
+Good examples:
 
-Create a small Express app.
+- one endpoint
+- one workflow
+- one core module contract
 
-```bash
-mkdir greeting-api
-cd greeting-api
-npm init -y
-npm pkg set type="module"
-npm pkg set scripts.dev="tsx src/server.ts"
-npm pkg set scripts.test="vitest run"
-npm install express
-npm install -D typescript tsx vitest supertest @types/node @types/express @types/supertest
-mkdir -p src
-```
+Keep the first subject small enough that one engineer can hold the whole thing in their head.
 
-## Install Spec Led
+## Recommended loop
 
-Add the spec workspace to the repo.
+1. Add the `.spec` workspace for your stack.
+2. Write one subject spec in `.spec/specs/`.
+3. Keep the first spec narrow:
+   - two or three requirements
+   - one or two scenarios
+   - one verification target
+4. Implement the code, tests, and docs from that contract.
+5. Run the local verification command and keep the same check in CI.
 
-```bash
-npx specled init
-```
+## What success looks like
 
-Example output:
+By the end of the first pass, the repo should have:
 
-```text
-$ npx specled init
+- one clear subject spec
+- tests or commands that prove the key requirements
+- a local verification command that passes
+- a CI check that will fail when code and intent drift apart
 
-Spec Led Init
+That is enough to establish the method.
 
-Create .spec workspace? Yes
-Install Spec Led Dev Authoring Skill too? [Y/n] y
+## Avoid
 
-Created .spec/README.md
-Created .spec/specs/spec_system.spec.md
-Created .spec/specs/package.spec.md
-Initialized .spec/state.json
-Installed Spec Led Dev Authoring Skill
+- modeling the whole project on day one
+- writing specs for things nobody understands yet
+- adding a large governance layer before the first verification loop works
+- treating the spec as a substitute for tests
 
-Next:
-- author .spec/specs/greeting-endpoint.spec.md
-- run npx specled verify
-```
+## Next step
 
-The workspace should now look like this:
+Once the first subject is stable, add the next subject right beside it.
 
-```text
-.spec/
-  README.md
-  state.json
-  specs/
-    spec_system.spec.md
-    package.spec.md
-```
-
-`state.json` is the generated state file for the spec workspace.
-
-It combines the current spec index and the latest verification findings.
-
-## Author your first spec with the skill
-
-In practice, most teams will draft this with an LLM.
-
-Use the `Spec Led Dev Authoring Skill` to brainstorm the feature and draft the first spec. Then edit the result until the intent is right.
-
-Example prompt:
-
-```text
-Use the Spec Led Dev Authoring Skill to draft a spec for GET /api/greeting in an Express app.
-It should return status 200 and a greeting when the request includes a name query value.
-It should return status 400 when the name query value is missing.
-Keep it small: 2 requirements, 2 scenarios, 1 verification target.
-```
-
-## Author the first spec
-
-Create one subject spec:
-
-```text
-.spec/specs/greeting-endpoint.spec.md
-```
-
-Start small.
-
-Do not model the whole app.
-Do not add extra behavior beyond the spec.
-
-The file is still normal markdown.
-
-The prose explains the feature for humans.
-The structured blocks give the verification loop something precise to check.
-
-Example:
-
-````md
-# Greeting Endpoint
-
-This endpoint returns a short greeting.
-
-It is small on purpose. The goal is to show how one feature can start with one clear contract.
-
-## Intent
-
-Expose `GET /api/greeting`.
-
-If the request includes a `name` query value, return a greeting.
-If the request does not include `name`, return a clear error.
-
-```spec-meta
-id: api.greeting
-kind: endpoint
-status: active
-surface:
-  - GET /api/greeting
-```
-
-## Requirements
-
-These are the rules this endpoint must keep true.
-
-```spec-requirements
-- id: greeting.name_provided
-  statement: When the request includes a non-empty name query value, the endpoint returns status 200 and a greeting string.
-- id: greeting.name_missing
-  statement: When the request does not include a name query value, the endpoint returns status 400 and an error message.
-```
-
-## Scenarios
-
-These scenarios make the rules concrete.
-
-```spec-scenarios
-- id: greeting.success
-  given:
-    - the server is running
-  when:
-    - a client calls GET /api/greeting?name=Ada
-  then:
-    - the response status is 200
-    - the response body includes "Hello, Ada"
-  covers:
-    - greeting.name_provided
-- id: greeting.missing_name
-  given:
-    - the server is running
-  when:
-    - a client calls GET /api/greeting without a name query value
-  then:
-    - the response status is 400
-    - the response body includes an error message
-  covers:
-    - greeting.name_missing
-```
-
-## Verification
-
-This tells the loop where to look for evidence.
-
-```spec-verification
-- kind: test
-  target: src/app.test.ts
-  covers:
-    - greeting.name_provided
-    - greeting.name_missing
-```
-````
-
-## Build the feature
-
-Build the code from the spec.
-
-`src/app.ts`
-
-```ts
-import express from "express";
-
-export function createApp() {
-  const app = express();
-
-  app.get("/api/greeting", (req, res) => {
-    const name = req.query.name;
-
-    if (typeof name !== "string" || name.trim() === "") {
-      return res.status(400).json({ error: "name is required" });
-    }
-
-    return res.status(200).json({ greeting: `Hello, ${name}` });
-  });
-
-  return app;
-}
-```
-
-`src/server.ts`
-
-```ts
-import { createApp } from "./app";
-
-const port = Number(process.env.PORT ?? 3000);
-
-createApp().listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
-});
-```
-
-`src/app.test.ts`
-
-```ts
-import request from "supertest";
-import { describe, expect, it } from "vitest";
-import { createApp } from "./app";
-
-describe("GET /api/greeting", () => {
-  const app = createApp();
-
-  it("returns a greeting when name is present", async () => {
-    const response = await request(app)
-      .get("/api/greeting")
-      .query({ name: "Ada" });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({ greeting: "Hello, Ada" });
-  });
-
-  it("returns 400 when name is missing", async () => {
-    const response = await request(app).get("/api/greeting");
-
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({ error: "name is required" });
-  });
-});
-```
-
-## Run `verify`
-
-Use `verify` as the normal local loop command.
-
-```bash
-npx specled verify
-```
+That keeps the adoption curve shallow and the method teachable.
 
 Passing output:
 
