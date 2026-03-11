@@ -73,6 +73,23 @@ That is how the repo creates back pressure when code changes but intent, tests, 
 
 This is how drift gets caught early instead of staying hidden.
 
+## How this helps review
+
+This loop also makes pull requests easier to review.
+
+When a behavior-changing pull request includes the spec update, the reviewer gets three clear things:
+
+1. the spec states the intended current truth
+2. the code shows the implementation
+3. CI shows whether the repo can prove the co-change
+
+That is better than asking a reviewer to infer intent from code and tests alone.
+
+The spec is not a replacement for the pull request description.
+
+The pull request description still explains scope, risk, and rollout.
+The spec explains what should now be true in the repository.
+
 ## Current truth versus derived state
 
 Spec Led Development keeps authored and derived information separate.

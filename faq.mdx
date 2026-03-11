@@ -64,6 +64,33 @@ No.
 The method is language-agnostic.
 The tooling is implementation-specific.
 
+## Is the spec just the pull request description?
+
+No.
+
+They do different jobs.
+
+The pull request description explains the change:
+
+- scope
+- risk
+- rollout
+- reviewer notes
+
+The spec states the durable current truth that the repository should keep after the change is merged.
+
+Keeping the spec in the same pull request is still useful because it gives reviewers a stable statement of intent before they inspect the code.
+
+## How does this help code review?
+
+It gives reviewers a clearer sequence:
+
+1. is the spec change correct?
+2. does the implementation match it?
+3. do the checks actually prove it?
+
+That is easier and safer than reconstructing intent from code alone.
+
 ## What is the real goal?
 
 The goal is not more documentation.

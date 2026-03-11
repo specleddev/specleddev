@@ -636,6 +636,16 @@ The purpose of CI in this model is not convenience.
 
 Its purpose is to keep drift visible at the team level.
 
+This also helps pull request review in a practical way.
+
+When a pull request includes both a spec change and an implementation change, the reviewer can compare:
+
+- the authored current truth
+- the implementation that claims to satisfy it
+- the verification result that proves or disproves that claim
+
+This review benefit is non-normative, but it is one of the main practical reasons to keep the spec in the same repository and the same pull request as the code it describes.
+
 ## 14. Extensibility and portability
 
 Version `1.0` defines the portable core.
