@@ -3,6 +3,8 @@ title: "Tooling"
 description: "Portable method, implementation-specific tools."
 ---
 
+> Spec 1.0: This page reflects the current stable portable core release.
+
 Spec Led Development is language-agnostic.
 
 The tooling is not.
@@ -25,7 +27,7 @@ What changes is the implementation that reads the workspace and runs the checks.
 
 ## Elixir package
 
-[`specled_ex`](https://github.com/specleddev/specled_ex) is the current most complete beta implementation.
+[`specled_ex`](https://github.com/specleddev/specled_ex) is the current most complete implementation of the 1.0 portable core.
 
 It provides Mix tasks for:
 
@@ -36,7 +38,7 @@ It provides Mix tasks for:
 - checking diff-aware co-changes
 - scaffolding ADRs for cross-cutting decisions
 
-This is the implementation the beta release is centered on today.
+This is the implementation with the deepest support for the current stable spec release.
 
 ## TypeScript package
 
@@ -81,7 +83,7 @@ Then the implementation-specific tooling can catch up around that contract.
 
 If you are evaluating the project today:
 
-- use the Elixir package if you want the most complete beta workflow
+- use the Elixir package if you want the most complete current workflow
 - treat the TypeScript package as the matching implementation direction
 - keep the site-level method docs language-agnostic so the model stays portable
 

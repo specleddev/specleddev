@@ -1,13 +1,28 @@
 ---
-title: "Moved"
-description: "The public beta site now points readers to Core Model instead of the older specification page."
+title: "Specification 1.0"
+description: "Reference material for the Spec Led Development 1.0 portable core."
 ---
 
-The public beta site no longer treats the older formal specification page as a primary entry point.
+> Spec 1.0: This page captures the current stable portable core release.
 
-Use [Core Model](/core-model) for the public explanation of the portable model.
+Use [Core Model](/core-model) for the short public explanation of the model.
+Use this page when you need the field definitions and processing rules behind the 1.0 release.
 
-The older specification draft is being reconsidered and rewritten.
+## 8. Authored claim model
+
+Version `1.0` defines five authored claim types:
+
+- subject
+- requirement
+- scenario
+- verification
+- exception
+
+### 8.1 Subject
+
+A subject identifies the part of the system a spec file is about.
+
+The `spec-meta` block MUST deserialize to a mapping.
 
 Required fields:
 
