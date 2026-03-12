@@ -1,0 +1,142 @@
+---
+title: "Examples"
+description: "Small, generic examples for the shape of Spec Led Development."
+---
+
+These are teaching examples.
+
+They show the shape of the method.
+They are not a full product spec.
+
+## A small subject spec
+
+This example keeps one module-level behavior small and direct.
+
+```md
+---
+subject:
+  id: billing.invoice_status
+  title: Invoice Status Updates
+  owners:
+    - payments
+spec-meta:
+  decisions:
+    - billing.decision.status-lifecycle
+---
+
+## Requirement
+
+`billing.invoice_status.accepts_valid_transitions`
+
+The invoice status flow must allow `draft -> sent -> paid`.
+
+## Requirement
+
+`billing.invoice_status.rejects_invalid_transitions`
+
+The invoice status flow must reject backward transitions after payment.
+
+## Scenario
+
+`billing.invoice_status.paid_invoice_rejects_reopen`
+
+Given a paid invoice, when a reopen request is sent, the system rejects the change.
+
+## Verification
+
+`billing.invoice_status.transition_tests`
+
+- kind: command
+- command: mix test test/billing/invoice_status_test.exs
+```
+
+What this does well:
+
+- one subject
+- small requirement set
+- one clarifying scenario
+- one real verification command
+
+## A package-level spec
+
+Package-level specs help a repo point at the main subject set.
+
+```md
+---
+subject:
+  id: billing.package
+  title: Billing Package
+---
+
+## Requirement
+
+`billing.package.documents_invoice_status`
+
+The package must define invoice status behavior through subject specs.
+
+## Verification
+
+`billing.package.invoice_status_subject_present`
+
+- kind: file
+- path: .spec/specs/invoice_status.spec.md
+```
+
+Package specs are useful for structure and visibility.
+They should not try to replace more focused subject specs.
+
+## A verification example
+
+Verification should point at real evidence:
+
+- source files when stable file linkage is useful
+- tests when executable behavior is the main proof
+- docs when user-facing guidance is part of the contract
+- commands when the subject is best proven through a focused slice
+
+Good example:
+
+```md
+## Verification
+
+`checkout.order_total.command_proof`
+
+- kind: command
+- command: npm test -- checkout/order-total.test.ts
+```
+
+Weak example:
+
+```md
+## Verification
+
+`checkout.order_total.hand_wavy_claim`
+
+- kind: claimed
+- note: this should probably work now
+```
+
+## A drift example
+
+Here is the pattern you want to avoid:
+
+1. code changes
+2. tests partly change
+3. the spec does not move
+4. the pull request asks the reviewer to infer intent from code alone
+
+Here is the better pattern:
+
+1. the spec changes with the behavior
+2. code and tests change against that target
+3. the check proves the co-change
+4. the reviewer sees intent, implementation, and proof in one place
+
+That is the real value.
+
+## What to copy from these examples
+
+- keep subjects small
+- write current truth, not aspiration
+- tie requirements to real evidence
+- keep the first loop cheap enough to run often

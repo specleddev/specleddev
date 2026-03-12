@@ -22,9 +22,13 @@
   "navigation": {
     "pages": [
       "home",
+      "tldr",
       "why",
       "how-it-works",
       "core-model",
+      "examples",
+      "agent-prompts",
+      "supporting-docs",
       "tooling",
       "getting-started",
       {

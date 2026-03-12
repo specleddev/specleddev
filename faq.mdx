@@ -64,6 +64,15 @@ No.
 The method is language-agnostic.
 The tooling is implementation-specific.
 
+## Is this just TDD with a new name?
+
+No.
+
+They solve related problems at different levels.
+
+TDD focuses on executable behavior through tests.
+Spec Led Development adds a current-truth contract in the repo so code, tests, docs, review, and CI have the same target.
+
 ## Is the spec just the pull request description?
 
 No.
@@ -96,3 +105,19 @@ That is easier and safer than reconstructing intent from code alone.
 The goal is not more documentation.
 
 The goal is to keep intent, implementation, and verification aligned as the code changes.
+
+## Where should roadmap and phase docs go?
+
+Keep them outside `.spec/specs/`.
+
+Good options are:
+
+- `docs/roadmap.md`
+- `docs/phases.md`
+- `.spec/notes/roadmap.md`
+
+The important boundary is simple:
+
+- `.spec/specs/` is current truth
+- `.spec/decisions/` is durable cross-cutting decisions
+- roadmap and planning docs are supporting context

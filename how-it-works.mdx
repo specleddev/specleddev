@@ -90,6 +90,18 @@ The spec is not a replacement for the pull request description.
 The pull request description still explains scope, risk, and rollout.
 The spec explains what should now be true in the repository.
 
+## How this relates to TDD
+
+There is some overlap.
+
+Both approaches try to keep behavior honest.
+
+TDD focuses on executable behavior through tests.
+Spec Led Development adds a repo-level current-truth layer that code, tests, docs, review, and CI can all point at.
+
+That means the method is not a replacement for TDD.
+It is a wider coordination layer around behavior and verification.
+
 ## Current truth versus derived state
 
 Spec Led Development keeps authored and derived information separate.
@@ -150,3 +162,5 @@ Agents can help:
 But they should work inside the loop, not outside it.
 
 That is the operating model.
+
+If you want copyable prompts for that workflow, start with [Agent Prompts](/agent-prompts).

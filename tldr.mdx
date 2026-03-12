@@ -1,0 +1,88 @@
+---
+title: "TL;DR"
+description: "The fastest way to understand Spec Led Development."
+---
+
+Spec Led Development gives a repo one small current-truth layer and one verification loop.
+
+That layer helps humans and agents work from the same contract.
+The loop helps the repo prove that code, tests, and docs still match the intended effect.
+
+## What it is
+
+Spec Led Development is a way to keep four things aligned:
+
+1. intent
+2. code
+3. tests and docs
+4. verification
+
+The goal is not more process.
+The goal is less drift.
+
+## What goes in the repo
+
+At the core:
+
+- `.spec/specs/*.spec.md`
+- `.spec/state.json`
+
+In a practical workspace, many teams also keep:
+
+- `.spec/README.md`
+- `.spec/AGENTS.md`
+- `.spec/decisions/*.md`
+
+## The basic loop
+
+1. Write the smallest current-truth spec that matters.
+2. Implement code, tests, and docs against it.
+3. Run the verification loop.
+4. Keep the same check in CI.
+
+If behavior changes, the spec should usually change in the same pull request.
+
+## Why people use it
+
+- code review gets clearer
+- drift gets caught earlier
+- agents get a better target
+- junior engineers get a simpler model to learn
+- the method stays portable across stacks
+
+## What it is not
+
+- not a replacement for tests
+- not a code generator
+- not a heavy requirements system
+- not a promise that every file needs a spec
+
+## Good first step
+
+Do not model the whole repo.
+
+Start with one subject:
+
+- one endpoint
+- one module contract
+- one workflow
+- one package-level behavior
+
+Then tie it to real evidence and run the check.
+
+## Start here next
+
+<CardGroup cols={2}>
+  <Card title="Getting Started" icon="flag" href="/getting-started">
+    Take the smallest good path into the method.
+  </Card>
+  <Card title="Examples" icon="shapes" href="/examples">
+    See a few small, generic spec examples.
+  </Card>
+  <Card title="Agent Prompts" icon="terminal" href="/agent-prompts">
+    Copy prompts for drafting, refining, and reviewing specs.
+  </Card>
+  <Card title="Supporting Docs" icon="folder-open" href="/supporting-docs">
+    See where roadmaps, phase docs, and notes should live.
+  </Card>
+</CardGroup>
