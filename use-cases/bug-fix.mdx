@@ -18,6 +18,17 @@ Fix the bug and make the intended behavior explicit enough that the same regress
 5. Update docs if the behavior is user-facing.
 6. Run the local verification and strict check commands before merge.
 
+## Prompt you can give an agent
+
+```text
+Fix this bug through the full Spec Led Development loop.
+
+First update the relevant requirement or scenario so the intended behavior is explicit.
+Then make the smallest safe code and test change to match it.
+Keep the regression proof.
+If the behavior is user-facing, check whether docs should move too.
+```
+
 ## Why this works
 
 A bug fix is one of the best times to use Spec Led Development because the intended effect is usually very clear:
@@ -33,6 +44,8 @@ That makes the spec update small and useful.
 - one requirement or one scenario update
 - one regression path
 - one bounded code change
+
+A good bug-fix spec update is usually only a few lines, but it makes the intended effect much easier to review.
 
 ## Avoid
 

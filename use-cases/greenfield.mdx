@@ -26,6 +26,8 @@ Good examples:
 
 Keep the first subject small enough that one engineer can hold the whole thing in their head.
 
+For example, start with one endpoint that has one clear success path and one important boundary case.
+
 ## Recommended loop
 
 1. Add the `.spec` workspace for your stack.
@@ -36,6 +38,17 @@ Keep the first subject small enough that one engineer can hold the whole thing i
    - one verification target
 4. Implement the code, tests, and docs from that contract.
 5. Run the local verification command and keep the same check in CI.
+
+## Prompt you can give an agent
+
+```text
+Draft one small current-truth subject spec for the first user-visible behavior in this repo.
+
+Keep it narrow.
+Write two or three requirements, one or two scenarios, and one real verification target.
+Do not model the whole project.
+End by pointing at the smallest proof we can run in this stack.
+```
 
 ## What success looks like
 
@@ -60,106 +73,6 @@ That is enough to establish the method.
 Once the first subject is stable, add the next subject right beside it.
 
 That keeps the adoption curve shallow and the method teachable.
-
-Passing output:
-
-```text
-$ npx specled verify
-
-Spec Led Verify
-
-Specs scanned: 3
-Subjects: 1
-Requirements: 2
-Scenarios: 2
-Verification targets: 1
-
-OK    .spec/specs/greeting-endpoint.spec.md
-OK    src/app.test.ts covers 2 requirements
-
-Updated .spec/state.json
-
-Result: 0 findings
-```
-
-`verify` updates `.spec/state.json` with the current spec index and findings.
-
-That file gives the tool one place to track current spec state.
-
-## Show drift on purpose
-
-Now imagine the test no longer checks the missing-name case.
-
-Run `verify` again:
-
-```bash
-npx specled verify
-```
-
-Example drift output:
-
-```text
-$ npx specled verify
-
-Spec Led Verify
-
-WARN  requirement greeting.name_missing has no matching verification
-WARN  src/app.test.ts does not assert status 400
-
-Updated .spec/state.json
-
-Result: 2 findings
-```
-
-## Run `check`
-
-`check` is the gate.
-
-If there is drift:
-
-```text
-$ npx specled check
-
-Spec Led Check
-
-FAIL 2 findings
-See .spec/state.json
-```
-
-If the repo is aligned:
-
-```text
-$ npx specled check
-
-Spec Led Check
-
-PASS 0 findings
-```
-
-It is the same loop, just enforced strictly.
-
-## Add CI
-
-Use the same command in CI.
-
-```yaml
-name: spec-check
-
-on:
-  pull_request:
-  push:
-    branches: [main]
-
-jobs:
-  spec-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npx specled check
-```
 
 ## What to skip
 

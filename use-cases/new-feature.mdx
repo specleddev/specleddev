@@ -19,6 +19,17 @@ Define the feature boundary clearly enough that implementation stays inside it.
 6. Update docs in the same change when the feature is user-facing.
 7. Run the local verification and strict check commands before merge.
 
+## Prompt you can give an agent
+
+```text
+Work on one new feature slice only.
+
+Write or update the subject spec first.
+State the feature in requirements, add scenarios for the important boundaries, and point at the proof that should verify it.
+Implement only what the current-truth spec calls for.
+Do not widen the feature without changing the spec.
+```
+
 ## Why this matters
 
 New feature work is where scope drift often starts.
@@ -35,6 +46,8 @@ Does this change implement the intended effect, or is it inventing more than we 
 - what the feature is not
 - what counts as done
 - what evidence should prove it
+
+One good first example is a single user-visible workflow step, not the whole feature family.
 
 ## Avoid
 

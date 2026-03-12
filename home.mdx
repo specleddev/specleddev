@@ -3,9 +3,13 @@ title: "Overview"
 description: "Keep intent, implementation, and verification in one loop."
 ---
 
-Spec Led Development is a small way to keep shared intent close to the code.
+Spec Led Development gives a repo a small current-truth layer plus a verification loop.
 
-It gives a repo one current-truth spec layer, a verification loop, and a clear place for humans and agents to meet.
+It keeps intent, code, tests, docs, and review pointed at the same contract.
+
+At the core, the repo keeps authored specs in `.spec/specs/*.spec.md` and derived state in `.spec/state.json`.
+
+If you are new, start with [Why](/why) for the motivation, [Getting Started](/getting-started) for the first pass, and [Tooling](/tooling) for the package repos and commands.
 
 ## The problem
 
@@ -58,13 +62,13 @@ The public model stays intentionally small.
 
 <CardGroup cols={2}>
   <Card title="Why" icon="compass" href="/why">
-    Read the practical reason this method exists and the constraints that shaped it.
+    Read why this exists and the constraints that shaped it.
   </Card>
   <Card title="How It Works" icon="rotate" href="/how-it-works">
     See the loop from current truth to code to verification.
   </Card>
   <Card title="Getting Started" icon="flag" href="/getting-started">
-    Choose the smallest good path for a new repo, brownfield repo, bug fix, or new feature.
+    Take the smallest good first pass into the method.
   </Card>
   <Card title="Core Model" icon="layers" href="/core-model">
     Read the small portable model at the center of the method.

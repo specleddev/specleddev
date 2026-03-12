@@ -9,6 +9,8 @@ Do not begin by trying to specify the whole repo.
 
 The best first step is one subject, one verification loop, and one clear piece of behavior that matters.
 
+A good first pass looks like this: choose one subject, write current truth, tie it to real evidence, and run the check before you widen the scope.
+
 ## The shortest path
 
 1. Choose one important subject.
@@ -18,6 +20,8 @@ The best first step is one subject, one verification loop, and one clear piece o
 5. Run the local verification command and fix drift before you widen the scope.
 
 That is enough to learn the method.
+
+If the change affects behavior, the pull request should usually include the spec update in the same change.
 
 ## Choose your starting point
 
@@ -51,6 +55,37 @@ Good first candidates:
 - one module contract
 - one workflow
 - one package-level behavior
+
+## A very small example
+
+You do not need much to start.
+
+```md
+---
+subject:
+  id: checkout.total
+  title: Checkout Total
+---
+
+## Requirement
+
+`checkout.total.includes_tax`
+
+The checkout total must include tax before payment is requested.
+```
+
+And then tie it to one real proof:
+
+```md
+## Verification
+
+`checkout.total.proof`
+
+- kind: command
+- command: run the smallest checkout total test for your stack
+```
+
+That is enough to learn the loop.
 
 ## What not to do first
 

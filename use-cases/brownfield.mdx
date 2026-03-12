@@ -26,6 +26,17 @@ That creates confusion fast, especially when the code, tests, and docs already d
 5. Run the local verification command to surface missing coverage and weak spots.
 6. Tighten one gap at a time.
 
+## Prompt you can give an agent
+
+```text
+Treat this as a brownfield retrofit.
+
+Read the current code, tests, and docs for one critical area.
+Write one current-truth subject spec that matches shipped behavior.
+Do not invent a better future design.
+Tie the subject to the smallest real verification path you can find.
+```
+
 ## What a good first slice looks like
 
 - one module with unclear behavior
@@ -38,6 +49,8 @@ That creates confusion fast, especially when the code, tests, and docs already d
 - every requirement should have at least one verification path
 - every important scenario should map to current evidence
 - current docs should not contradict the new current-truth spec
+
+One good first example is a module that already has tests but still causes repeated confusion in code review.
 
 ## Avoid
 
