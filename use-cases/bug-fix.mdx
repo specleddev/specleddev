@@ -14,20 +14,24 @@ Fix the bug and make the intended behavior explicit enough that the same regress
 ## Recommended loop
 
 1. Reproduce the bug with a failing test or another clear failing check.
-2. Update the relevant requirement or scenario before the code change.
-3. Implement the smallest safe fix.
-4. Keep the regression test.
-5. Update docs if the behavior is user-facing.
-6. Run the local verification and strict check commands before merge.
+2. Implement the smallest safe fix.
+3. Keep the regression test.
+4. Run the guided reconcile step. In `specled_ex`, that is `mix spec.assist --bugfix`.
+5. If the current subject already states the intended behavior, keep the test and tighten a scenario only when the wording is ambiguous.
+6. If the intended behavior is missing, update the requirement or scenario before merge.
+7. Update docs if the behavior is user-facing.
+8. Run the strict check before merge.
 
 ## Prompt you can give an agent
 
 ```text
 Fix this bug through the full Spec Led Development loop.
 
-First update the relevant requirement or scenario so the intended behavior is explicit.
-Then make the smallest safe code and test change to match it.
-Keep the regression proof.
+First add or keep the regression proof.
+Then make the smallest safe code change.
+Run the guided reconcile step for this repo.
+If the current subject already states the intended behavior, keep the test and tighten a scenario only if needed.
+If the intended behavior is missing, update the requirement or scenario before you finish.
 If the behavior is user-facing, check whether docs should move too.
 ```
 
@@ -47,7 +51,7 @@ That makes the spec update small and useful.
 - one regression path
 - one bounded code change
 
-A good bug-fix spec update is usually only a few lines, but it makes the intended effect much easier to review.
+A good bug-fix spec update is usually only a few lines, but sometimes the right outcome is to keep the new regression test and leave the requirement unchanged because the current truth was already clear.
 
 ## Avoid
 

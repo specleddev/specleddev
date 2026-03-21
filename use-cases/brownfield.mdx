@@ -25,8 +25,9 @@ That creates confusion fast, especially when the code, tests, and docs already d
 2. Read the current code, tests, and docs together.
 3. Write a subject spec that matches shipped behavior and known constraints.
 4. Point verification at the evidence that already exists.
-5. Run the local verification command to surface missing coverage and weak spots.
-6. Tighten one gap at a time.
+5. Use the guided reconcile step for your stack to see whether the current change lands in covered territory or on the uncovered frontier. In `specled_ex`, that is `mix spec.assist`.
+6. Run the local report to surface missing coverage and weak spots.
+7. Tighten one gap at a time.
 
 ## Prompt you can give an agent
 
@@ -37,6 +38,7 @@ Read the current code, tests, and docs for one critical area.
 Write one current-truth subject spec that matches shipped behavior.
 Do not invent a better future design.
 Tie the subject to the smallest real verification path you can find.
+Use the guided reconcile step to keep the next gap small and visible.
 ```
 
 ## What a good first slice looks like

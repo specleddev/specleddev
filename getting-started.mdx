@@ -9,17 +9,18 @@ Start smaller than you think.
 
 Do not begin by trying to specify the whole repo.
 
-The best first step is one subject, one verification loop, and one clear piece of behavior that matters.
+The best first step is one subject, one small reconcile loop, and one clear piece of behavior that matters.
 
-A good first pass looks like this: choose one subject, write current truth, tie it to real evidence, and run the check before you widen the scope.
+A good first pass looks like this: choose one subject, make one small change, tie it to real evidence, reconcile the current truth, and run the check before you widen the scope.
 
 ## The shortest path
 
 1. Choose one important subject.
 2. Add the `.spec` workspace with the tooling for your stack.
-3. Write one current-truth subject spec.
-4. Tie it to real evidence.
-5. Run the local verification command and fix drift before you widen the scope.
+3. Make the smallest code, docs, or test change that matters.
+4. Add or tighten the smallest proof when behavior changed.
+5. Run the guided reconcile step for your stack. In `specled_ex`, that is `mix spec.assist`.
+6. Update one current-truth subject and run the strict check.
 
 That is enough to learn the method.
 
@@ -95,7 +96,7 @@ Avoid these traps:
 
 - modeling the whole repo on day one
 - writing aspirational specs that do not match shipped behavior
-- adding a lot of process before you have one working verification loop
+- adding a lot of process before you have one working reconcile loop
 - treating the spec as a replacement for tests
 
 ## Next steps

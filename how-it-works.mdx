@@ -9,14 +9,31 @@ Spec Led Development is not just "write a spec."
 
 It is a working loop:
 
-1. write current truth
-2. build code, tests, and docs against it
-3. verify that the effects still match the spec
-4. keep the same check in CI
+1. make the change
+2. add or tighten the proof
+3. reconcile the current truth
+4. verify that the effects still match the spec
+5. keep the same check in CI
 
 Without that loop, the spec is just another document.
 
-## 1. Write current truth
+## 1. Make the change
+
+Start small.
+
+Change one feature, one bug, one workflow step, or one subject boundary.
+
+That keeps the next reconciliation step manageable.
+
+## 2. Add or tighten the proof
+
+Once the change is clear enough, add or tighten the smallest test, guide, or command that proves it.
+
+Tests are not peer truth with the spec.
+
+They are evidence that helps the repo prove the current truth.
+
+## 3. Reconcile current truth
 
 Start with the smallest subject that matters.
 
@@ -39,9 +56,7 @@ The portable core keeps five claim types:
 
 The authored layer says what must stay true.
 
-## 2. Build against it
-
-Once the spec is clear enough, implement code, tests, and docs against it.
+Once the change is clear enough, implement code, tests, and docs against it.
 
 Humans and agents can both work in this step.
 
@@ -52,7 +67,11 @@ That is important.
 The value is not that an agent can read a spec.
 The value is that humans and agents now have one shared contract to work from.
 
-## 3. Verify the result
+In a mature workflow, this is where a guided step helps.
+
+For example, `specled_ex` provides `mix spec.assist` to point at the next subject, proof, or ADR update for the current Git change set.
+
+## 4. Verify the result
 
 Verification turns the spec into something operational.
 
@@ -67,7 +86,7 @@ That check can point at:
 
 The exact command depends on the implementation for your stack.
 
-## 4. Keep the loop live
+## 5. Keep the loop live
 
 The same check should run locally and in CI.
 
@@ -164,3 +183,13 @@ Agents can help:
 But they should work inside the loop, not outside it.
 
 That is the operating model.
+
+## Proven lessons, tighter loop
+
+This is built on proven software engineering lessons.
+
+Fred Brooks argued for conceptual integrity.
+
+Martin Fowler pushed teams toward small, evolutionary design and concrete behavioral examples.
+
+Spec Led Development keeps those lessons, but gives the repo a tighter reconcile loop for local work, review, and CI.
