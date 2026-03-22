@@ -54,7 +54,7 @@ The spec is not the whole system. It is the small contract layer that keeps thos
 ## CLI Packages
 
 - JavaScript and TypeScript: [`specled`](https://github.com/specleddev/specled), run with `npx specled`
-- Elixir: [`specled_ex`](https://github.com/specleddev/specled_ex), with `mix spec.init`, `mix spec.verify`, and `mix spec.check`
+- Elixir: [`specled_ex`](https://github.com/specleddev/specled_ex), with `mix spec.prime`, `mix spec.next`, and `mix spec.check`
 
 ## This Repo
 

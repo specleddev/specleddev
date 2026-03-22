@@ -29,25 +29,22 @@ What changes is the implementation that reads the workspace and runs the checks.
 
 [`specled_ex`](https://github.com/specleddev/specled_ex) is the current most complete implementation of the 1.0 portable core.
 
-It provides Mix tasks for:
+Its command story is intentionally simple:
 
-- initializing a workspace
-- guiding the next current-truth update from the current Git change set
-- verifying authored specs
-- running a strict conformance check
-- reporting coverage and verification strength
-- checking diff-aware co-changes
-- scaffolding ADRs for cross-cutting decisions
+- `mix spec.prime` for session-start context
+- `mix spec.init`, `mix spec.next`, and `mix spec.check` for the default local loop
+- `mix spec.status` and `mix spec.decision.new` when you need coverage or durable ADR support
+- `mix spec.index` and `mix spec.validate` as lower-level plumbing
 
 This is the implementation with the deepest support for the current stable spec release.
 
 Today that also means `specled_ex` has the simplest beginner loop:
 
-1. make the change
-2. add or tighten the smallest proof
-3. run `mix spec.assist`
+1. run `mix spec.prime --base HEAD` when you enter the repo or hand work to an agent
+2. make the change and tighten the smallest proof
+3. run `mix spec.next`
 4. update the subject or ADR if needed
-5. run `mix spec.check`
+5. run `mix spec.check --base HEAD`
 
 ## TypeScript package
 

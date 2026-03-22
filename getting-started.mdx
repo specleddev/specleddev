@@ -17,10 +17,11 @@ A good first pass looks like this: choose one subject, make one small change, ti
 
 1. Choose one important subject.
 2. Add the `.spec` workspace with the tooling for your stack.
-3. Make the smallest code, docs, or test change that matters.
-4. Add or tighten the smallest proof when behavior changed.
-5. Run the guided reconcile step for your stack. In `specled_ex`, that is `mix spec.assist`.
-6. Update one current-truth subject and run the strict check.
+3. If you are entering an existing repo or branch, get context first. In `specled_ex`, run `mix spec.prime --base HEAD`.
+4. Make the smallest code, docs, or test change that matters.
+5. Add or tighten the smallest proof when behavior changed.
+6. Run the guided reconcile step for your stack. In `specled_ex`, that is `mix spec.next`.
+7. Update one current-truth subject if needed, then run the strict check. In `specled_ex`, that is `mix spec.check --base HEAD`.
 
 That is enough to learn the method.
 
