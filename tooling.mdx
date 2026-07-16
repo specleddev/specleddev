@@ -1,9 +1,11 @@
 ---
 title: "Tooling"
-description: "Portable method, implementation-specific tools."
+description: "Unmaintained implementation-specific tools for the Spec Led Development method."
 ---
 
-> Spec 1.0: This page reflects the current stable portable core release.
+> **Maintenance status:** Spec Led Development and its tools are no longer maintained. These repositories remain public as a reference. No new features, bug fixes, or support are planned.
+
+> Spec 1.0: This page reflects the last published portable core release.
 
 Spec Led Development is language-agnostic.
 
@@ -27,7 +29,7 @@ What changes is the implementation that reads the workspace and runs the checks.
 
 ## Elixir package
 
-[`specled_ex`](https://github.com/specleddev/specled_ex) is the current most complete implementation of the 1.0 portable core.
+[`specled_ex`](https://github.com/specleddev/specled_ex) is the most complete published implementation of the 1.0 portable core.
 
 Its command story is intentionally simple:
 
@@ -36,7 +38,7 @@ Its command story is intentionally simple:
 - `mix spec.status` and `mix spec.decision.new` when you need coverage or durable ADR support
 - `mix spec.index` and `mix spec.validate` as lower-level plumbing
 
-This is the implementation with the deepest support for the current stable spec release.
+This is the implementation with the deepest support for the last published spec release.
 
 Today that also means `specled_ex` has the simplest beginner loop:
 
@@ -45,16 +47,6 @@ Today that also means `specled_ex` has the simplest beginner loop:
 3. run `mix spec.next`
 4. update the subject or ADR if needed
 5. run `mix spec.check --base HEAD`
-
-## TypeScript package
-
-[`specled`](https://github.com/specleddev/specled) is the JavaScript and TypeScript implementation track.
-
-The goal is the same portable workspace and verification model for JS and TS repos.
-
-It is earlier in maturity than the Elixir package.
-
-That means the method is already language-agnostic, while the tooling maturity is still catching up across implementations.
 
 ## CI support
 
@@ -70,28 +62,18 @@ If you want the actual project repos, start here:
 
 - [Docs site](https://github.com/specleddev/specleddev)
 - [Elixir package](https://github.com/specleddev/specled_ex)
-- [TypeScript package](https://github.com/specleddev/specled)
 - [GitHub Actions](https://github.com/specleddev/github-actions)
 
-## If your stack is not fully supported yet
+## Portable reference without tooling
 
-You can still adopt the method.
-
-The portable core is small enough that a repo can start with:
+The portable core can be read independently of the published tools. Its minimum repository contract is:
 
 - `.spec/specs/*.spec.md`
 - `.spec/state.json`
 - one local verification command
 
-Then the implementation-specific tooling can catch up around that contract.
+The implementation-specific tooling remains frozen at the state in these public repositories.
 
-## Choosing a path
+## Using this reference
 
-If you are evaluating the project today:
-
-- use the Elixir package if you want the most complete current workflow
-- treat the TypeScript package as the matching implementation direction
-- keep the site-level method docs language-agnostic so the model stays portable
-
-If you want the method first, start with the docs site.
-If you want implementation details, start with the package repo for your stack.
+Use the site for the language-agnostic method and the Elixir package for the most complete implementation details. The TypeScript implementation was not published as a public repository.

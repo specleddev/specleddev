@@ -1,18 +1,19 @@
 # Spec Led Dev
 
+> **Maintenance status**
+>
+> Spec Led Development is no longer maintained. This repository remains public as a reference. No new features, bug fixes, or support are planned.
+
 [![Spec 1.0](https://img.shields.io/badge/spec-1.0-353535)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-specled.dev-727272)](https://specled.dev)
-[![GitHub Repo stars](https://img.shields.io/github/stars/specleddev/specleddev?style=social)](https://github.com/specleddev/specleddev)
 
 Developer landing page for Spec Led Development and source for [specled.dev](https://specled.dev).
 
-The current stable spec release is `1.0`.
+The last published spec release is `1.0`.
 
 Spec Led Development gives a repo a small current-truth layer plus a verification loop. It keeps intent, code, tests, docs, and review pointed at the same contract so drift stays visible.
 
 At the core, the repo keeps authored specs in `.spec/specs/*.spec.md` and derived state in `.spec/state.json`.
-
-If this project is useful to you, please [star `specleddev/specleddev`](https://github.com/specleddev/specleddev).
 
 ## Why It Exists
 
@@ -51,10 +52,10 @@ The spec is not the whole system. It is the small contract layer that keeps thos
 - Tooling: [specled.dev/tooling](https://specled.dev/tooling)
 - Changelog: [CHANGELOG.md](./CHANGELOG.md)
 
-## CLI Packages
+## Tooling Repositories
 
-- JavaScript and TypeScript: [`specled`](https://github.com/specleddev/specled), run with `npx specled`
 - Elixir: [`specled_ex`](https://github.com/specleddev/specled_ex), with `mix spec.prime`, `mix spec.next`, and `mix spec.check`
+- CI: [`github-actions`](https://github.com/specleddev/github-actions), with reusable Spec Led Development checks
 
 ## This Repo
 
