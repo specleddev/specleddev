@@ -23,5 +23,5 @@ The 1.0 release marks the first stable public version of the portable Spec Led D
 ### Release Notes
 
 - `.spec/state.json` uses `specification_version: "1.0"` for the portable core release
-- [`specled_ex`](https://github.com/specleddev/specled_ex) is the most complete current implementation of the 1.0 spec
-- [`specled`](https://github.com/specleddev/specled) is the JavaScript and TypeScript implementation track for the same model
+- [`specled_ex`](https://github.com/specleddev/specled_ex) is the most complete published implementation of the 1.0 spec
+- A JavaScript and TypeScript implementation track was planned but not published as a public repository
